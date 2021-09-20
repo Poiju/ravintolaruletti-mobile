@@ -18,7 +18,7 @@ export default function App() {
       const result = await response.json()
 
       if (response.ok) {
-        setPlaces(result)
+        setPlaces(result.data[0].id)
       } else {
         setErrorMessage(result.message)
       }
