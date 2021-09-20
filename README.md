@@ -9,6 +9,8 @@ Tiimi: Risto Lähteenkorva, Maisa Mäntyvaara, Krista Nyberg, Tomi Salo, Tuomas 
 ## Ravintolaruletti:
 * Mobiilisovellus, joka auttaa käyttäjää löytämään mieluisen ravintolan Tinder-tyyliin
 * Kehityksessä käytetään MyHelsinki Open APIa ravintolatietojen hakemiseen 
+* Mobiilisovellus-repositorio [täällä](https://github.com/Poiju/ravintolaruletti-mobile)
+* Backend-repositorio [täällä](https://github.com/Poiju/ravintolaruletti-backend)
 
 ## Käytettävät teknologiat:
 * Python / Django
