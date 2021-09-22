@@ -10,6 +10,8 @@ const BASE_PLACES_URL = 'https://open-api.myhelsinki.fi/v1/places/'
 
 export default function App() {
   const [places, setPlaces] = useState('Loading...')
+  const [restaurant, setRestaurant] = useState({id: "", name: "", lat: 0, long: 0, address: ""
+  , postal_code: "", locality: "", description: "", hours: ""})
   const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
@@ -25,6 +27,10 @@ export default function App() {
 
       if (response.ok) {
         setPlaces(result.data[0].id)
+        setRestaurant({id: result.data[0].id, name: result.data[0].name.fi, lat:result.data[0].location.lat, long:result.data[0].location.long,
+        address: result.data[0].location.address.street_address, postal_code: result.data[0].location.address.postal_code, locality: result.data[0].location.address.locality,
+        description: result.data[0].description.body, hours: ""})
+        console.log(restaurant)
       } else {
         setErrorMessage(result.message)
       }
@@ -35,7 +41,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text>{places}</Text>
+      <Text>{restaurant.id}</Text>
       <Text>{errorMessage}</Text>
       <StatusBar style="auto" />
 
