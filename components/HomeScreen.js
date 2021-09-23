@@ -1,19 +1,58 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import Carousel from 'react-native-snap-carousel';
 
-const BASE_PLACES_URL = 'https://open-api.myhelsinki.fi/v1/places/'
+const BASE_PLACES_URL = 'https://open-api.myhelsinki.fi/v1/places/?limit=10'
 
 export default function HomeScreen() {
   const [places, setPlaces] = useState('Loading...')
-  const [restaurant, setRestaurant] = useState({
-    id: "", name: "", lat: 0, long: 0, address: ""
-    , postal_code: "", locality: "", description: "", hours: ""
-  })
+  const [restaurant, setRestaurant] = useState([
+    {
+      name: {
+        fi: 'Testi A'
+      },
+      location: {
+        address: {
+          street_address: 'Testikatu A'
+        }
+      },
+      description: {
+        body: 'Testibody A'
+      }
+    },
+    {
+      name: {
+        fi: 'Testi B'
+      },
+      location: {
+        address: {
+          street_address: 'Testikatu B'
+        }
+      },
+      description: {
+        body: 'Testibody B'
+      }
+    },
+    {
+      name: {
+        fi: 'Testi C'
+      },
+      location: {
+        address: {
+          street_address: 'Testikatu C'
+        }
+      },
+      description: {
+        body: 'Testibody C'
+      }
+    },
+  ])
   const [errorMessage, setErrorMessage] = useState(null)
+  const [cardIndex, setCardIndex] = useState(0)
 
   useEffect(() => {
-    load()
+    //load()
+    console.log(restaurant)
   }, [])
 
   async function load() {
@@ -22,12 +61,7 @@ export default function HomeScreen() {
       const result = await response.json()
 
       if (response.ok) {
-        setPlaces(result.data[0].id)
-        setRestaurant({
-          id: result.data[0].id, name: result.data[0].name.fi, lat: result.data[0].location.lat, long: result.data[0].location.long,
-          address: result.data[0].location.address.street_address, postal_code: result.data[0].location.address.postal_code, locality: result.data[0].location.address.locality,
-          description: result.data[0].description.body, hours: ""
-        })
+        setRestaurant(result.data)
         console.log(restaurant)
       } else {
         setErrorMessage(result.message)
@@ -37,14 +71,38 @@ export default function HomeScreen() {
     }
   }
 
+  const renderItem = ({ item, index }) => {
+    return (
+      <View style={{
+        backgroundColor: 'floralwhite',
+        borderRadius: 5,
+        height: 250,
+        padding: 50,
+        marginLeft: 25,
+        marginRight: 25,
+      }}>
+        <Text style={{ fontSize: 30 }}>{item.name.fi}</Text>
+        <Text>{item.location.address.street_address}</Text>
+        <Text>{item.description.body}</Text>
+      </View>
+
+    )
+  }
+
   return (
-    <View>
-      <Text>{restaurant.name}</Text>
-      <Text>{restaurant.address}</Text>
-      <Text>{restaurant.description}</Text>
-      <Text>{errorMessage}</Text>
-      <StatusBar style="auto" hidden={true} />
-    </View>
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'rebeccapurple', paddingTop: 50, }}>
+      <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', }}>
+        <Carousel
+          layout={"default"}
+          //ref={ref => this.carousel = ref}
+          data={restaurant}
+          sliderWidth={300}
+          itemWidth={300}
+          renderItem={() => renderItem()}
+        //onSnapToItem={index => setCardIndex(index)} 
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 
