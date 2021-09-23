@@ -16,6 +16,9 @@ Tiimi: Risto Lähteenkorva, Maisa Mäntyvaara, Krista Nyberg, Tomi Salo, Tuomas 
 * Python / Django
 * React Native
 
+## Käytettäviä kirjastoja:
+* Käyttöliittymän "kortit": [react-native-snap-carousel](https://www.npmjs.com/package/react-native-snap-carousel)
+
 ## Käyttäjätarinoita
 * (tähän kivasti niitä)
 
