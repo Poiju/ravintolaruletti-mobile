@@ -1,66 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './components/HomeScreen';
 import SettingsScreen from './components/SettingsScreen';
-
-const BASE_PLACES_URL = 'https://open-api.myhelsinki.fi/v1/places/'
+import { Ionicons } from '@expo/vector-icons';
 
 export default function App() {
-  const [places, setPlaces] = useState('Loading...')
-  const [restaurant, setRestaurant] = useState({id: "", name: "", lat: 0, long: 0, address: ""
-  , postal_code: "", locality: "", description: "", hours: ""})
-  const [errorMessage, setErrorMessage] = useState(null)
-
-  useEffect(() => {
-    load()
-  }, [])
 
   const Tab = createBottomTabNavigator();
 
-  async function load() {
-    try {
-      const response = await fetch(BASE_PLACES_URL)
-      const result = await response.json()
-
-      if (response.ok) {
-        setPlaces(result.data[0].id)
-        setRestaurant({id: result.data[0].id, name: result.data[0].name.fi, lat:result.data[0].location.lat, long:result.data[0].location.long,
-        address: result.data[0].location.address.street_address, postal_code: result.data[0].location.address.postal_code, locality: result.data[0].location.address.locality,
-        description: result.data[0].description.body, hours: ""})
-        console.log(restaurant)
-      } else {
-        setErrorMessage(result.message)
-      }
-    } catch (error) {
-      setErrorMessage(error.message)
-    }
-  }
-
   return (
-    <View style={styles.container}>
-      <Text>{restaurant.id}</Text>
-      <Text>{errorMessage}</Text>
-      <StatusBar style="auto" />
-
-      <NavigationContainer>
-        <Tab.Navigator>
-          <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Settings" component={SettingsScreen} />
-        </Tab.Navigator>
-      </NavigationContainer>
-
-    </View>
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({ // Navigator can be customized using screenOptions
+          tabBarIcon: ({ focused, color, size }) => { // Function tabBarIcon is given the focused state, color and size params
+            let iconName;
+            if (route.name === 'Home') {
+              iconName = 'md-home';
+            } else if (route.name === 'Settings') {
+              iconName = 'md-settings';
+            }
+            return <Ionicons name={iconName} size={size} color={color} />; //it returns an icon component
+          },
+        })}>
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Settings" component={SettingsScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
