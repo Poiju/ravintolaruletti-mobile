@@ -21,7 +21,7 @@ export default function HomeScreen() {
       if (response.ok) {
         setPlaces(result.data[0].id)
         setRestaurant(result.data[0])
-        console.log(restaurant)
+        console.log("Restaurant fetched id: " + restaurant.id)
         
       } else {
         setErrorMessage(result.message)
