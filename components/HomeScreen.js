@@ -6,7 +6,8 @@ const BASE_PLACES_URL = 'https://open-api.myhelsinki.fi/v1/places/?limit=10'
 
 export default function HomeScreen() {
   const [places, setPlaces] = useState('Loading...')
-  const [restaurant, setRestaurant] = useState([
+  const [restaurant, setRestaurant] = useState([])
+  /*const [restaurant, setRestaurant] = useState([
     {
       name: {
         fi: 'Testi A'
@@ -46,15 +47,16 @@ export default function HomeScreen() {
         body: 'Testibody C'
       }
     },
-  ])
+  ])*/
   const [errorMessage, setErrorMessage] = useState(null)
   const [cardIndex, setCardIndex] = useState(0)
 
   useEffect(() => {
-    //load()
-    console.log(restaurant)
+    load()
+    //console.log(restaurant)
   }, [])
 
+  // Fetch data from API
   async function load() {
     try {
       const response = await fetch(BASE_PLACES_URL)
@@ -71,35 +73,30 @@ export default function HomeScreen() {
     }
   }
 
-  const renderItem = ({ item, index }) => {
-    return (
-      <View style={{
-        backgroundColor: 'floralwhite',
-        borderRadius: 5,
-        height: 250,
-        padding: 50,
-        marginLeft: 25,
-        marginRight: 25,
-      }}>
-        <Text style={{ fontSize: 30 }}>{item.name.fi}</Text>
-        <Text>{item.location.address.street_address}</Text>
-        <Text>{item.description.body}</Text>
-      </View>
-
-    )
-  }
-
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'rebeccapurple', paddingTop: 50, }}>
       <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', }}>
         <Carousel
-          layout={"default"}
-          //ref={ref => this.carousel = ref}
+          layout={"tinder"}
           data={restaurant}
           sliderWidth={300}
           itemWidth={300}
-          renderItem={() => renderItem()}
-        //onSnapToItem={index => setCardIndex(index)} 
+          renderItem={({ item, index }) => {
+            return (
+              <View style={{
+                backgroundColor: 'floralwhite',
+                borderRadius: 5,
+                height: 250,
+                padding: 50,
+                marginLeft: 25,
+                marginRight: 25,
+              }}>
+                <Text style={{ fontSize: 30 }}>{item.name.fi}</Text>
+                <Text>{item.location.address.street_address}</Text>
+                <Text>{item.description.body}</Text>
+              </View>
+            )
+          }}
         />
       </View>
     </SafeAreaView>
