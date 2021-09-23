@@ -6,12 +6,28 @@ const BASE_PLACES_URL = 'https://open-api.myhelsinki.fi/v1/places/?limit=10'
 
 export default function HomeScreen() {
   const [places, setPlaces] = useState('Loading...')
-  const [restaurant, setRestaurant] = useState()
   const [errorMessage, setErrorMessage] = useState(null)
+  const [restaurant, setRestaurant] = useState(
+    {
+      name: {
+        fi: 'Testi A'
+      },
+      location: {
+        address: {
+          street_address: 'Testikatu A'
+        }
+      },
+      description: {
+        body: 'Testibody A'
+      }
+    },
+  )
+
 
   useEffect(() => {
     load()
   }, [])
+
 
   async function load() {
     try {
