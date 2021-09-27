@@ -6,8 +6,8 @@ const BASE_PLACES_URL = 'https://open-api.myhelsinki.fi/v1/places/?limit=10'
 
 export default function HomeScreen() {
   const [places, setPlaces] = useState('Loading...')
-  const [restaurants, setrestaurants] = useState([])
-  /*const [restaurants, setrestaurants] = useState([
+  const [restaurants, setRestaurants] = useState([])
+  /*const [restaurants, setRestaurants] = useState([
     {
       name: {
         fi: 'Testi A'
@@ -63,7 +63,7 @@ export default function HomeScreen() {
       const result = await response.json()
 
       if (response.ok) {
-        setrestaurants(result.data)
+        setRestaurants(result.data)
         console.log(restaurants)
       } else {
         setErrorMessage(result.message)
