@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
+import * as Location from 'expo-location'
 
 const BASE_PLACES_URL = 'https://open-api.myhelsinki.fi/v1/places/?limit=10'
 
 export default function HomeScreen() {
   const [places, setPlaces] = useState('Loading...')
   const [restaurants, setRestaurants] = useState([])
+  const [location, setLocation] = useState(null)
   /*const [restaurants, setRestaurants] = useState([
     {
       name: {
@@ -53,6 +55,7 @@ export default function HomeScreen() {
 
   useEffect(() => {
     load()
+    getLocation()
     //console.log(restaurants)
   }, [])
 
@@ -71,6 +74,18 @@ export default function HomeScreen() {
     } catch (error) {
       setErrorMessage(error.message)
     }
+  }
+
+  async function getLocation() {
+    
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
   }
 
   return (
