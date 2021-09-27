@@ -6,8 +6,8 @@ const BASE_PLACES_URL = 'https://open-api.myhelsinki.fi/v1/places/?limit=10'
 
 export default function HomeScreen() {
   const [places, setPlaces] = useState('Loading...')
-  const [restaurant, setRestaurant] = useState([])
-  /*const [restaurant, setRestaurant] = useState([
+  const [restaurants, setrestaurants] = useState([])
+  /*const [restaurants, setrestaurants] = useState([
     {
       name: {
         fi: 'Testi A'
@@ -53,7 +53,7 @@ export default function HomeScreen() {
 
   useEffect(() => {
     load()
-    //console.log(restaurant)
+    //console.log(restaurants)
   }, [])
 
   // Fetch data from API
@@ -63,8 +63,8 @@ export default function HomeScreen() {
       const result = await response.json()
 
       if (response.ok) {
-        setRestaurant(result.data)
-        console.log(restaurant)
+        setrestaurants(result.data)
+        console.log(restaurants)
       } else {
         setErrorMessage(result.message)
       }
@@ -78,7 +78,7 @@ export default function HomeScreen() {
       <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', }}>
         <Carousel
           layout={"tinder"}
-          data={restaurant}
+          data={restaurants}
           sliderWidth={300}
           itemWidth={300}
           renderItem={({ item, index }) => {
