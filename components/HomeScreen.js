@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
-import Carousel from 'react-native-snap-carousel';
+import { View, Text, StyleSheet, SafeAreaView, Button, Alert } from 'react-native';
+import Carousel from 'react-native-snap-carousel'; 
+import RestaurantLocation from './RestaurantLocation'; 
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 const BASE_PLACES_URL = 'https://open-api.myhelsinki.fi/v1/places/?limit=10'
 
-export default function HomeScreen() {
+export default function HomeScreen( {navigation} ) {
   const [places, setPlaces] = useState('Loading...')
   const [restaurants, setRestaurants] = useState([])
   /*const [restaurants, setRestaurants] = useState([
@@ -64,7 +67,7 @@ export default function HomeScreen() {
 
       if (response.ok) {
         setRestaurants(result.data)
-        console.log(restaurants)
+        console.log(restaurants) 
       } else {
         setErrorMessage(result.message)
       }
@@ -88,18 +91,23 @@ export default function HomeScreen() {
                 borderRadius: 5,
                 height: 250,
                 padding: 50,
-                marginLeft: 25,
+                marginLeft: 25,          
                 marginRight: 25,
               }}>
-                <Text style={{ fontSize: 30 }}>{item.name.fi}</Text>
+                <Text style={{ fontSize: 30 }}>{item.name.fi}</Text> 
+                <Button title="Show on map"
+                  onPress={() => navigation.navigate('RestaurantLocation', {
+                     location: item.location}  
+                    )}/>
                 <Text>{item.location.address.street_address}</Text>
-                <Text>{item.description.body}</Text>
+                <Text>{item.description.body}</Text> 
               </View>
             )
           }}
-        />
+        />  
+
       </View>
-    </SafeAreaView>
+    </SafeAreaView> 
   );
 };
 
