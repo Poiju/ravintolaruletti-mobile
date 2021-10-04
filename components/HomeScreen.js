@@ -56,7 +56,7 @@ export default function HomeScreen() {
   useEffect(() => {
     load()
     getLocation()
-    //console.log(restaurants)
+    console.log(location)
   }, [])
 
   // Fetch data from API
@@ -67,7 +67,7 @@ export default function HomeScreen() {
 
       if (response.ok) {
         setRestaurants(result.data)
-        console.log(restaurants)
+        
       } else {
         setErrorMessage(result.message)
       }
@@ -80,7 +80,7 @@ export default function HomeScreen() {
     
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
+        setErrorMessage('Permission to access location was denied');
         return;
       }
 
