@@ -6,19 +6,22 @@ import * as Location from 'expo-location';
 
 export default function RestaurantLocation( {route} ) { 
 
+
 const { location } = route.params;
 
-const [region, setRegion] = useState({
+const region = {
   latitude: location.lat, 
   longitude: location.lon,
   latitudeDelta:0.0322,
   longitudeDelta:0.0221,
-  });  
+  };  
 
 const marker = {
   latitude: region.latitude, 
   longitude: region.longitude 
-} 
+}   
+
+
 
   return ( 
     <View style={{height:100, flex:1}}>

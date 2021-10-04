@@ -74,7 +74,8 @@ export default function HomeScreen( {navigation} ) {
     } catch (error) {
       setErrorMessage(error.message)
     }
-  }
+  } 
+  
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'rebeccapurple', paddingTop: 50, }}>
@@ -95,10 +96,12 @@ export default function HomeScreen( {navigation} ) {
                 marginRight: 25,
               }}>
                 <Text style={{ fontSize: 30 }}>{item.name.fi}</Text> 
-                <Button title="Show on map"
+                <Button title={item.location.address.street_address}
                   onPress={() => navigation.navigate('RestaurantLocation', {
-                     location: item.location}  
-                    )}/>
+                    location: item.location}  
+                   )
+                   }
+                />
                 <Text>{item.location.address.street_address}</Text>
                 <Text>{item.description.body}</Text> 
               </View>
