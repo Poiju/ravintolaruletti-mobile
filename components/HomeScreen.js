@@ -2,52 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
-const BASE_PLACES_URL = 'https://open-api.myhelsinki.fi/v1/places/?limit=10'
+// Google Places API call parameters
+const API_KEY = ''
+const TYPE = 'restaurant'
+const RADIUS = '150' // meters
+const LOCATION = '60.16083241285829%2C24.942086204628993' // ~ Helsinki centrum
+const PLACES_URL = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${LOCATION}&radius=${RADIUS}&type=${TYPE}&key=${API_KEY}`
 
 export default function HomeScreen() {
   const [places, setPlaces] = useState('Loading...')
   const [restaurants, setRestaurants] = useState([])
-  /*const [restaurants, setRestaurants] = useState([
-    {
-      name: {
-        fi: 'Testi A'
-      },
-      location: {
-        address: {
-          street_address: 'Testikatu A'
-        }
-      },
-      description: {
-        body: 'Testibody A'
-      }
-    },
-    {
-      name: {
-        fi: 'Testi B'
-      },
-      location: {
-        address: {
-          street_address: 'Testikatu B'
-        }
-      },
-      description: {
-        body: 'Testibody B'
-      }
-    },
-    {
-      name: {
-        fi: 'Testi C'
-      },
-      location: {
-        address: {
-          street_address: 'Testikatu C'
-        }
-      },
-      description: {
-        body: 'Testibody C'
-      }
-    },
-  ])*/
   const [errorMessage, setErrorMessage] = useState(null)
   const [cardIndex, setCardIndex] = useState(0)
 
@@ -59,12 +23,11 @@ export default function HomeScreen() {
   // Fetch data from API
   async function load() {
     try {
-      const response = await fetch(BASE_PLACES_URL)
+      const response = await fetch(PLACES_URL)
       const result = await response.json()
 
       if (response.ok) {
-        setRestaurants(result.data)
-        console.log(restaurants)
+        setRestaurants(result.results)
       } else {
         setErrorMessage(result.message)
       }
@@ -91,9 +54,9 @@ export default function HomeScreen() {
                 marginLeft: 25,
                 marginRight: 25,
               }}>
-                <Text style={{ fontSize: 30 }}>{item.name.fi}</Text>
-                <Text>{item.location.address.street_address}</Text>
-                <Text>{item.description.body}</Text>
+                <Text style={{ fontSize: 30 }}>{item.name}</Text>
+                <Text>{item.vicinity}</Text>
+                <Text>Rating: {item.rating}</Text>
               </View>
             )
           }}
