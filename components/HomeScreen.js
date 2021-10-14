@@ -7,6 +7,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const BASE_PLACES_URL = 'https://open-api.myhelsinki.fi/v1/places/?limit=10'
 
+const Stack = createStackNavigator();
+
+
 export default function HomeScreen( {navigation} ) {
   const [places, setPlaces] = useState('Loading...')
   const [restaurants, setRestaurants] = useState([])
@@ -77,8 +80,8 @@ export default function HomeScreen( {navigation} ) {
   } 
   
 
-  return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'rebeccapurple', paddingTop: 50, }}>
+  return ( 
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'rebeccapurple', paddingTop: 50, }}> 
       <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', }}>
         <Carousel
           layout={"tinder"}
@@ -86,7 +89,7 @@ export default function HomeScreen( {navigation} ) {
           sliderWidth={300}
           itemWidth={300}
           renderItem={({ item, index }) => {
-            return (
+            return ( 
               <View style={{
                 backgroundColor: 'floralwhite',
                 borderRadius: 5,
@@ -98,7 +101,7 @@ export default function HomeScreen( {navigation} ) {
                 <Text style={{ fontSize: 30 }}>{item.name.fi}</Text> 
                 <Button title={item.location.address.street_address}
                   onPress={() => navigation.navigate('RestaurantLocation', {
-                    location: item.location}  
+                    info: item}  
                    )
                    }
                 />

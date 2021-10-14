@@ -32,8 +32,8 @@ export default function App() {
         })}>
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Settings" component={SettingsScreen} /> 
-        <Tab.Screen name="Map" component={Map} /> 
-        <Tab.Screen name="RestaurantLocation" component={RestaurantLocation} />
+        <Tab.Screen name="Map" component={Map} />   
+        <Tab.Screen name="RestaurantLocation" component={RestaurantLocation} />  
       </Tab.Navigator> 
     </NavigationContainer>
   );
