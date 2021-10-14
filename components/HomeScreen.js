@@ -3,12 +3,13 @@ import { View, Text, StyleSheet, SafeAreaView, ImageBackground, Image } from 're
 import Carousel from 'react-native-snap-carousel';
 
 // Google Places API call parameters
-const API_KEY = ''
+const API_KEY = '' //
 // Nearby Search
 const TYPE = 'restaurant'
 const RADIUS = '100' // meters
 const LOCATION = '60.16083241285829%2C24.942086204628993' // ~ Helsinki centrum
 const PLACES_URL = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${LOCATION}&radius=${RADIUS}&type=${TYPE}&key=${API_KEY}`
+ 
 
 export default function HomeScreen() {
   const [places, setPlaces] = useState('Loading...')
@@ -19,6 +20,7 @@ export default function HomeScreen() {
 
   useEffect(() => {
     load()
+    
     //console.log(restaurants)
   }, [])
 
@@ -40,17 +42,19 @@ export default function HomeScreen() {
       console.log('Restaurants: ' + restaurants)
       mapPhotos()
     }
-
+    
     console.log('Photos: ' + photos)
+    /*
     for (i = 0; i < photos; i++) {
       console.log('Photo ' + i + ': ' + photos[i])
     }
+    */
   }
 
   const mapPhotos = () => {
     for (let i = 0; i < restaurants.length; i++) {
       console.log('Photo reference: ' + restaurants[i].photos[0].photo_reference)
-      const photo = loadPhotos(restaurants[i].photos[0].photo_reference)
+      let photo = loadPhotos(restaurants[i].photos[0].photo_reference)
       console.log('Photo variable: ' + photo)
       setPhotos([...photos, { url: photo }])
     }
@@ -109,24 +113,24 @@ export default function HomeScreen() {
    */
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'rebeccapurple', paddingTop: 50, }}>
-      <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', }}>
-        {restaurants == true &&
-          <View>
-            <Image
-              style={styles.image}
-              source={{
-                uri: photos[0],
-              }}
-            />
-            <Text style={{ fontSize: 30 }}>{restaurants[0].name}</Text>
-            <Text>{restaurants[0].vicinity}</Text>
-            <Text>Rating: {restaurants[0].rating}</Text>
-          </View>
-        }
+  <SafeAreaView style={{ flex: 1, backgroundColor: 'rebeccapurple', paddingTop: 50, }}>
+  <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', }}>
+    {restaurants.length > 0 && 
+      <View>
+        <Image
+          style={styles.image}
+          source={{
+            uri: photos[0],
+          }}
+        />  
+        <Text style={{ fontSize: 30 }}>{restaurants[0].name}</Text>
+        <Text>{restaurants[0].vicinity}</Text>
+        <Text>Rating: {restaurants[0].rating}</Text>
       </View>
-    </SafeAreaView>
-  );
+    }
+  </View>  
+  </SafeAreaView>
+  )
 };
 
 const styles = StyleSheet.create({
