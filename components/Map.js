@@ -5,18 +5,13 @@ import MapView, { Marker } from 'react-native-maps';
 
 export default function Map() {
   const [location, setLocation] = useState({
-    latitude:60.200692,
-    longitude:24.934302,
+    latitude:0,
+    longitude:0,
     latitudeDelta:0.0322,
     longitudeDelta:0.0221,
   });
   
-  const region = {
-    latitude: location.lat, 
-    longitude: location.lon,
-    latitudeDelta:0.0322,
-    longitudeDelta:0.0221,
-    };  
+  
 
   useEffect(() => {
     (async () => {
@@ -26,18 +21,22 @@ export default function Map() {
         return;
       }
       let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
+      setLocation({latitude: location.coords.latitude,
+      longitude:location.coords.longitude,
+      latitudeDelta:0.0322,
+      longitudeDelta:0.0221});
     })();
   }, []);
 
-  
+
   return ( 
     <View style={{height:100, flex:1}}>
+    {location.latitude != undefined && 
     <MapView
       style={{ flex: 1 }}
-      region={region}> 
+      region={location}> 
       </MapView>
-      
+      }
     </View>
   );
 }
