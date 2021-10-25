@@ -3,25 +3,26 @@ import { View, Text, StyleSheet, SafeAreaView, ImageBackground, Image } from 're
 import Carousel from 'react-native-snap-carousel';
 
 // Google Places API call parameters
-const API_KEY = '' //
+const API_KEY = ''
 // Nearby Search
 const TYPE = 'restaurant'
 const RADIUS = '100' // meters
 const LOCATION = '60.16083241285829%2C24.942086204628993' // ~ Helsinki centrum
 const PLACES_URL = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${LOCATION}&radius=${RADIUS}&type=${TYPE}&key=${API_KEY}`
- 
+
 
 export default function HomeScreen() {
-  const [places, setPlaces] = useState('Loading...')
   const [restaurants, setRestaurants] = useState([])
   const [photos, setPhotos] = useState([])
-  const [errorMessage, setErrorMessage] = useState(null)
   const [cardIndex, setCardIndex] = useState(0)
+  const [errorMessage, setErrorMessage] = useState()
+  const [photoErrorMessage, setPhotoErrorMessage] = useState()
 
   useEffect(() => {
     load()
-    
-    //console.log(restaurants)
+      .then((res) => mapPhotos(res))
+      .then(() => console.log('Photos: ' + JSON.stringify(photos, null, 4)))
+    //JSON.stringify(photos[0], null, 4)
   }, [])
 
   // Fetch data from API
@@ -32,31 +33,31 @@ export default function HomeScreen() {
 
       if (response.ok) {
         setRestaurants(result.results)
-        //console.log('Results: ' + result.results)
+        return result.results
       } else {
         setErrorMessage(result.message)
       }
     } catch (error) {
       setErrorMessage(error.message)
-    } finally {
-      console.log('Restaurants: ' + restaurants)
-      mapPhotos()
     }
-    
-    console.log('Photos: ' + photos)
-    /*
-    for (i = 0; i < photos; i++) {
-      console.log('Photo ' + i + ': ' + photos[i])
-    }
-    */
   }
 
-  const mapPhotos = () => {
-    for (let i = 0; i < restaurants.length; i++) {
-      console.log('Photo reference: ' + restaurants[i].photos[0].photo_reference)
-      let photo = loadPhotos(restaurants[i].photos[0].photo_reference)
-      console.log('Photo variable: ' + photo)
-      setPhotos([...photos, { url: photo }])
+  async function mapPhotos(res) {
+    console.log('Restaurants: ' + res)
+    for (let i = 0; i < res.length; i++) {
+      if (res[i].photos[0].photo_reference !== null) {
+
+        //console.log('Photo reference: ' + restaurants[i].photos[0].photo_reference)
+
+        let ref = res[i].photos[0].photo_reference
+        // Get picture URL from API
+        let photo = await loadPhotos(ref)
+
+        //console.log('Photo variable JSON: ' + JSON.stringify(photo, null, 4))
+        console.log('Photo variable NORMAL: ' + photo)
+
+        setPhotos([...photos, { url: photo }])
+      }
     }
   }
 
@@ -66,16 +67,18 @@ export default function HomeScreen() {
       const photos_url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${max_width}&photo_reference=${reference}&key=${API_KEY}`
 
       const response = await fetch(photos_url)
-      const result = await response.json()
+      const resultBlob = await response.blob()
+      const photo = URL.createObjectURL(resultBlob)
 
       if (response.ok) {
-        console.log('LoadPhotos result: ' + result)
-        return result
+        //console.log('LoadPhotos result: ' + results)
+        return photo
       } else {
-        setErrorMessage(result.message)
+        console.log("RESPONSE NOT OK Couldn't load photos")
       }
     } catch (error) {
-      setErrorMessage(error.message)
+      setPhotoErrorMessage(error.message)
+      console.log("ERROR Couldn't load photos: " + photoErrorMessage)
     }
   }
 
@@ -113,23 +116,23 @@ export default function HomeScreen() {
    */
 
   return (
-  <SafeAreaView style={{ flex: 1, backgroundColor: 'rebeccapurple', paddingTop: 50, }}>
-  <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', }}>
-    {restaurants.length > 0 && 
-      <View>
-        <Image
-          style={styles.image}
-          source={{
-            uri: photos[0],
-          }}
-        />  
-        <Text style={{ fontSize: 30 }}>{restaurants[0].name}</Text>
-        <Text>{restaurants[0].vicinity}</Text>
-        <Text>Rating: {restaurants[0].rating}</Text>
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'rebeccapurple', paddingTop: 50, }}>
+      <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', }}>
+        {restaurants.length > 0 &&
+          <View>
+            <Image
+              style={styles.image}
+              source={{
+
+              }}
+            />
+            <Text style={{ fontSize: 30 }}>{restaurants[0].name}</Text>
+            <Text>{restaurants[0].vicinity}</Text>
+            <Text>Rating: {restaurants[0].rating}</Text>
+          </View>
+        }
       </View>
-    }
-  </View>  
-  </SafeAreaView>
+    </SafeAreaView>
   )
 };
 
