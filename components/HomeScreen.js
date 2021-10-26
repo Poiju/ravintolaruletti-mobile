@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, ImageBackground, Image } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, ImageBackground } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
 // Google Places API call parameters
-const API_KEY = ''
+const API_KEY = 'AIzaSyA2AN3Sw7_PiR9V096VcZ4ja3YrvHCAR8o'
 // Nearby Search
 const TYPE = 'restaurant'
-const RADIUS = '100' // meters
+const RADIUS = '300' // meters
 const LOCATION = '60.16083241285829%2C24.942086204628993' // ~ Helsinki centrum
 const PLACES_URL = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${LOCATION}&radius=${RADIUS}&type=${TYPE}&key=${API_KEY}`
 
@@ -18,9 +18,9 @@ export default function HomeScreen() {
 
   useEffect(() => {
     loadRestaurants()
+    generateBoxShadowStyle(0, 5, '#9aa0b9', 0.05, 13, 20, '#9aa0b9')
   }, [])
 
-  // Fetch data from API
   async function loadRestaurants() {
     try {
       const response = await fetch(PLACES_URL)
@@ -29,6 +29,7 @@ export default function HomeScreen() {
       if (response.ok) {
         // Set restaurant data
         setRestaurants(result.results)
+        console.log('Number of restaurants fetched: ' + result.results.length)
         // Get restaurant photos
         mapPhotos(result.results)
       } else {
@@ -43,7 +44,7 @@ export default function HomeScreen() {
     let newPhotos = []
 
     for (let i = 0; i < res.length; i++) {
-      if (res[i].photos[0].photo_reference !== null) {
+      if (res[i].photos) {
         // Create image URL for the first available photo
         let photo = loadPhoto(res[i].photos[0].photo_reference)
         newPhotos = [...newPhotos, photo]
@@ -60,54 +61,60 @@ export default function HomeScreen() {
     return photos_url
   }
 
-  /**
-   
-<Carousel
-          layout={"tinder"}
+  // Necessary for unified iOS and Android box shadow
+  // Source: https://blog.logrocket.com/applying-box-shadows-in-react-native/
+  const generateBoxShadowStyle = (
+    xOffset,
+    yOffset,
+    shadowColorIos,
+    shadowOpacity,
+    shadowRadius,
+    elevation,
+    shadowColorAndroid,
+  ) => {
+    if (Platform.OS === 'ios') {
+      styles.boxShadow = {
+        shadowColor: shadowColorIos,
+        shadowOffset: { width: xOffset, height: yOffset },
+        shadowOpacity,
+        shadowRadius,
+      };
+    } else if (Platform.OS === 'android') {
+      styles.boxShadow = {
+        elevation,
+        shadowColor: shadowColorAndroid,
+      };
+    }
+  };
+
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff', paddingTop: 50, }}>
+      <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', }}>
+        <Carousel
+          layout={'default'}
           data={restaurants}
-          sliderWidth={300}
-          itemWidth={300}
+          sliderWidth={350}
+          itemWidth={350}
           renderItem={({ item, index }) => {
             return (
-              <View style={{
-                backgroundColor: 'floralwhite',
-                borderRadius: 5,
-                height: 450,
-                padding: 50,
-                marginLeft: 25,
-                marginRight: 25,
-              }}>
-                <Image
-                  style={styles.image}
-                  source={{
-                    uri: photos[index],
-                  }}
-                />
-                <Text style={{ fontSize: 30 }}>{item.name}</Text>
-                <Text>{item.vicinity}</Text>
-                <Text>Rating: {item.rating}</Text>
+              <View style={[styles.card, styles.boxShadow]}>
+                <View>
+                  <ImageBackground
+                    style={styles.image}
+                    imageStyle={styles.imageBackground}
+                    source={{ uri: photos[index] }}
+                  >
+                  </ImageBackground>
+                </View>
+                <View style={styles.cardContent}>
+                  <Text style={styles.cardTitle}>{item.name}</Text>
+                  <Text style={styles.cardAddress}>{item.vicinity}</Text>
+                  <Text>Rating: {item.rating}</Text>
+                </View>
               </View>
             )
           }}
         />
-
-   */
-
-  return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'rebeccapurple', paddingTop: 50, }}>
-      <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', }}>
-        {restaurants.length > 0 &&
-          <View>
-            <ImageBackground
-              style={styles.image}
-              source={{ uri: photos[0] }}
-            >
-            </ImageBackground>
-            <Text style={{ fontSize: 30 }}>{restaurants[0].name}</Text>
-            <Text>{restaurants[0].vicinity}</Text>
-            <Text>Rating: {restaurants[0].rating}</Text>
-          </View>
-        }
       </View>
     </SafeAreaView>
   )
@@ -121,7 +128,31 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
-    width: 200,
-    height: 200
-  }
+    width: 300,
+    height: 250,
+  },
+  imageBackground: {
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5
+  },
+  card: {
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    height: 425,
+    marginLeft: 25,
+    marginRight: 25
+  },
+  cardContent: {
+    paddingVertical: 25,
+    paddingHorizontal: 30,
+    backgroundColor: '#fff'
+  },
+  cardTitle: {
+    fontSize: 24,
+    marginBottom: 10
+  },
+  cardAddress: {
+    marginBottom: 5
+  },
+  boxShadow: {}// See generateBoxShadowStyle function
 });
