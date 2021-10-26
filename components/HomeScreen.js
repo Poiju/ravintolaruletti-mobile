@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, SafeAreaView, ImageBackground } from 'react-nat
 import Carousel from 'react-native-snap-carousel';
 
 // Google Places API call parameters
-const API_KEY = 'AIzaSyA2AN3Sw7_PiR9V096VcZ4ja3YrvHCAR8o'
+const API_KEY = ''
 // Nearby Search
 const TYPE = 'restaurant'
 const RADIUS = '300' // meters
