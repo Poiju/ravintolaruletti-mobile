@@ -15,50 +15,50 @@ export default function HomeScreen() {
   const [restaurants, setRestaurants] = useState([])
   const [photos, setPhotos] = useState([])
   const [cardIndex, setCardIndex] = useState(0)
-  const [errorMessage, setErrorMessage] = useState()
-  const [photoErrorMessage, setPhotoErrorMessage] = useState()
 
   useEffect(() => {
-    load()
-      .then((res) => mapPhotos(res))
-      .then(() => console.log('Photos: ' + JSON.stringify(photos, null, 4)))
-    //JSON.stringify(photos[0], null, 4)
+    loadRestaurants()
   }, [])
 
+  useEffect(() => {
+    mapPhotos(restaurants)
+  }, [restaurants])
+
   // Fetch data from API
-  async function load() {
+  async function loadRestaurants() {
     try {
       const response = await fetch(PLACES_URL)
       const result = await response.json()
 
       if (response.ok) {
         setRestaurants(result.results)
-        return result.results
       } else {
-        setErrorMessage(result.message)
+        console.log("RESPONSE NOT OK Couldn't load restaurants: " + result.message)
       }
     } catch (error) {
-      setErrorMessage(error.message)
+      console.log("ERROR Couldn't load restaurants: " + error.message)
     }
   }
 
-  async function mapPhotos(res) {
-    console.log('Restaurants: ' + res)
-    for (let i = 0; i < res.length; i++) {
-      if (res[i].photos[0].photo_reference !== null) {
+  async function mapPhotos() {
+    let newPhotos = []
 
-        //console.log('Photo reference: ' + restaurants[i].photos[0].photo_reference)
+    for (let i = 0; i < restaurants.length; i++) {
+      if (restaurants[i].photos[0].photo_reference !== null) {
 
-        let ref = res[i].photos[0].photo_reference
+        let ref = restaurants[i].photos[0].photo_reference
         // Get picture URL from API
         let photo = await loadPhotos(ref)
 
         //console.log('Photo variable JSON: ' + JSON.stringify(photo, null, 4))
-        console.log('Photo variable NORMAL: ' + photo)
+        console.log('Photo url: ' + photo)
 
-        setPhotos([...photos, { url: photo }])
+        newPhotos = [...newPhotos, photo]
       }
     }
+
+    setPhotos(newPhotos)
+    console.log('Photos: ' + JSON.stringify(photos, null, 4))
   }
 
   async function loadPhotos(reference) {
@@ -66,19 +66,16 @@ export default function HomeScreen() {
       const max_width = '400'
       const photos_url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${max_width}&photo_reference=${reference}&key=${API_KEY}`
 
-      const response = await fetch(photos_url)
-      const resultBlob = await response.blob()
-      const photo = URL.createObjectURL(resultBlob)
+      // Source: https://codeburst.io/adding-city-images-to-your-react-app-14c937df2db2
+      const photo = await fetch(photos_url)
+        .then(r => r.blob()) // Data is JPEG Binary so needs to be handled as a Blob
+        .catch(console.error)
 
-      if (response.ok) {
-        //console.log('LoadPhotos result: ' + results)
-        return photo
-      } else {
-        console.log("RESPONSE NOT OK Couldn't load photos")
-      }
+      //const photo = URL.createObjectURL(photoBlurb)
+      return photo
+
     } catch (error) {
-      setPhotoErrorMessage(error.message)
-      console.log("ERROR Couldn't load photos: " + photoErrorMessage)
+      console.log("ERROR Couldn't load photos: " + error.message)
     }
   }
 
@@ -122,9 +119,7 @@ export default function HomeScreen() {
           <View>
             <Image
               style={styles.image}
-              source={{
-
-              }}
+            //source={{ uri: photos[0] }}
             />
             <Text style={{ fontSize: 30 }}>{restaurants[0].name}</Text>
             <Text>{restaurants[0].vicinity}</Text>
