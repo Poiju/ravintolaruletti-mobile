@@ -32,11 +32,11 @@ const marker = {
     <MapView
       style={{ flex: 5 }}
       region={loc}> 
-      <Marker coordinate={marker}>
-        <View style={styles.circle}> 
-          <Text>{info.name}</Text>
-        </View>
-      </Marker>
+      <Marker coordinate={{
+       latitude: loc.latitude, 
+       longitude: loc.longitude
+       }}
+       title={info.name}/> 
     </MapView>
       <Button title='Takaisin' onPress={() => navigation.navigate('HomeScreen')}></Button>
     </View>

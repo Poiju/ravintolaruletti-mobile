@@ -6,7 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 // Google Places API call parameters
-const API_KEY = ''
+const API_KEY = 'AIzaSyDOnJG4k5mDPt1rfM93OE_1C1TRKfDbeGQ'
 // Nearby Search
 const TYPE = 'restaurant'
 const RADIUS = '300' // meters
