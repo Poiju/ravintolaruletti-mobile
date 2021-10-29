@@ -8,13 +8,12 @@ import Map from './components/Map';
 import { Ionicons } from '@expo/vector-icons'; 
 import RestaurantLocation from './components/RestaurantLocation';
 
-export default function App() {
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
-  const Tab = createBottomTabNavigator();
-  const Stack = createStackNavigator();
+function Home() {
   return (
-    <NavigationContainer>
-      <Tab.Navigator
+    <Tab.Navigator
         screenOptions={({ route }) => ({ // Navigator can be customized using screenOptions
           tabBarIcon: ({ focused, color, size }) => { // Function tabBarIcon is given the focused state, color and size params
             let iconName;
@@ -33,8 +32,27 @@ export default function App() {
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Settings" component={SettingsScreen} /> 
         <Tab.Screen name="Map" component={Map} />   
-        <Tab.Screen name="RestaurantLocation" component={RestaurantLocation} />  
       </Tab.Navigator> 
+  );
+}
+
+export default function App() {
+
+  
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+          initialRouteName="HomeScreen"
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen
+            name="RestaurantLocation"
+            component={RestaurantLocation}
+          />
+          <Stack.Screen name="HomeScreen" component={Home} />
+        </Stack.Navigator> 
     </NavigationContainer>
   );
 }

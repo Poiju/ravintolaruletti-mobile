@@ -34,7 +34,12 @@ export default function Map() {
     {location.latitude != undefined && 
     <MapView
       style={{ flex: 1 }}
-      region={location}> 
+      region={location}>  
+     <Marker coordinate={{
+       latitude: location.latitude, 
+       longitude: location.longitude
+       }}
+       title='Haaga-Helia'/> 
       </MapView>
       }
     </View>

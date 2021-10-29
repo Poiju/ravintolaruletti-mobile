@@ -139,6 +139,33 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  }, 
+  image: {
+    width: 300,
+    height: 250,
+  },
+  imageBackground: {
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5
+  },
+  card: {
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    height: 425,
+    marginLeft: 25,
+    marginRight: 25
+  },
+  cardContent: {
+    paddingVertical: 25,
+    paddingHorizontal: 30,
+    backgroundColor: '#fff'
+  },
+  cardTitle: {
+    fontSize: 24,
+    marginBottom: 10
+  },
+  cardAddress: {
+    marginBottom: 5
   },
   image: {
     width: 300,

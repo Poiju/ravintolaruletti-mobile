@@ -4,15 +4,17 @@ import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 
 
-export default function RestaurantLocation( {route} ) { 
+export default function RestaurantLocation( {route, navigation} ) { 
 
 
 const { info } = route.params;
 console.log(info.name); 
+console.log(info.geometry.location.lat);
+console.log(info.geometry.location.lng);
 
 const loc = {
   latitude: info.geometry.location.lat, 
-  longitude: info.geometry.location.lon,
+  longitude: info.geometry.location.lng,
   latitudeDelta:0.0322,
   longitudeDelta:0.0221, 
   };  
@@ -36,7 +38,7 @@ const marker = {
         </View>
       </Marker>
     </MapView>
-      
+      <Button title='Takaisin' onPress={() => navigation.navigate('HomeScreen')}></Button>
     </View>
   );
 }
