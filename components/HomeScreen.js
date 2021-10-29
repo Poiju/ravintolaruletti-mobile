@@ -4,27 +4,37 @@ import Carousel from 'react-native-snap-carousel';
 import RestaurantLocation from './RestaurantLocation';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import getLocation from './Location';
 
 // Google Places API call parameters
-const API_KEY = 'AIzaSyDOnJG4k5mDPt1rfM93OE_1C1TRKfDbeGQ'
+const API_KEY = ''
 // Nearby Search
 const TYPE = 'restaurant'
 const RADIUS = '300' // meters
 const LOCATION = '60.16083241285829%2C24.942086204628993' // ~ Helsinki centrum
+
 const PLACES_URL = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${LOCATION}&radius=${RADIUS}&type=${TYPE}&key=${API_KEY}`
 
 const Stack = createStackNavigator();
 
 
 export default function HomeScreen({ navigation }) {
+  const [location, setLocation] = useState("Loading")
   const [restaurants, setRestaurants] = useState([])
   const [photos, setPhotos] = useState([])
   const [cardIndex, setCardIndex] = useState(0)
+  
+
+
 
   useEffect(() => {
+    setLocation(getLocation())
     loadRestaurants()
     generateBoxShadowStyle(0, 5, '#9aa0b9', 0.05, 13, 20, '#9aa0b9')
+    
   }, [])
+    
+  
 
   async function loadRestaurants() {
     try {
@@ -127,7 +137,6 @@ export default function HomeScreen({ navigation }) {
             )
           }}
         />
-
       </View>
     </SafeAreaView>
   )
