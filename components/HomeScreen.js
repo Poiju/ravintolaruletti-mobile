@@ -11,19 +11,15 @@ const API_KEY = ''
 // Nearby Search
 const TYPE = 'restaurant'
 const RADIUS = '300' // meters
-const LOCATION = '60.16083241285829%2C24.942086204628993' // ~ Helsinki centrum
 
-const PLACES_URL = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${LOCATION}&radius=${RADIUS}&type=${TYPE}&key=${API_KEY}`
 
 const Stack = createStackNavigator();
 
 export default function HomeScreen({ navigation }) {
-  const [location, setLocation] = useState("Loading")
   const [restaurants, setRestaurants] = useState([])
   const [photos, setPhotos] = useState([])
 
   useEffect(() => {
-    setLocation(getLocation())
     loadRestaurants()
     generateBoxShadowStyle(0, 5, '#9aa0b9', 0.05, 13, 20, '#9aa0b9')
 
@@ -32,8 +28,6 @@ export default function HomeScreen({ navigation }) {
   async function loadRestaurants() {
     try {
       const loc = await getLocation(); 
-      console.log(loc); 
-      console.log('taa on type' + TYPE)
       const response = await fetch('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + loc.latitude + '%2C' + loc.longitude + '&radius=' + RADIUS + '&type=' + TYPE + '&key=' + API_KEY)
       const result = await response.json()
 
