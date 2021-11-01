@@ -17,24 +17,17 @@ const PLACES_URL = `https://maps.googleapis.com/maps/api/place/nearbysearch/json
 
 const Stack = createStackNavigator();
 
-
 export default function HomeScreen({ navigation }) {
   const [location, setLocation] = useState("Loading")
   const [restaurants, setRestaurants] = useState([])
   const [photos, setPhotos] = useState([])
-  const [cardIndex, setCardIndex] = useState(0)
-  
-
-
 
   useEffect(() => {
     setLocation(getLocation())
     loadRestaurants()
     generateBoxShadowStyle(0, 5, '#9aa0b9', 0.05, 13, 20, '#9aa0b9')
-    
+
   }, [])
-    
-  
 
   async function loadRestaurants() {
     try {
@@ -42,11 +35,10 @@ export default function HomeScreen({ navigation }) {
       const result = await response.json()
 
       if (response.ok) {
-        // Set restaurant data
-        setRestaurants(result.results)
         console.log('Number of restaurants fetched: ' + result.results.length)
-        // Get restaurant photos
-        mapPhotos(result.results)
+
+        // Load photos and filter out restaurants without any
+        filterRestaurantData(result.results)
       } else {
         console.log("RESPONSE NOT OK Couldn't load restaurants: " + result.message)
       }
@@ -55,17 +47,22 @@ export default function HomeScreen({ navigation }) {
     }
   }
 
-  const mapPhotos = (res) => {
+  const filterRestaurantData = (data) => {
+    let newRestaurants = []
     let newPhotos = []
 
-    for (let i = 0; i < res.length; i++) {
-      if (res[i].photos) {
-        // Create image URL for the first available photo
-        let photo = loadPhoto(res[i].photos[0].photo_reference)
+    for (let i = 0; i < data.length; i++) {
+      // Check if restaurant has photos
+      if (data[i].photos) {
+        // Create image URL for the first image in array
+        let photo = loadPhoto(data[i].photos[0].photo_reference)
         newPhotos = [...newPhotos, photo]
+        newRestaurants = [...newRestaurants, data[i]]
       }
     }
 
+    // Keep only restaurants with photos
+    setRestaurants(newRestaurants)
     setPhotos(newPhotos)
   }
 
@@ -148,7 +145,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  }, 
+  },
   image: {
     width: 300,
     height: 250,
