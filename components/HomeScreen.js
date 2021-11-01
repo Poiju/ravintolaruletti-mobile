@@ -31,7 +31,10 @@ export default function HomeScreen({ navigation }) {
 
   async function loadRestaurants() {
     try {
-      const response = await fetch(PLACES_URL)
+      const loc = await getLocation(); 
+      console.log(loc); 
+      console.log('taa on type' + TYPE)
+      const response = await fetch('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + loc.latitude + '%2C' + loc.longitude + '&radius=' + RADIUS + '&type=' + TYPE + '&key=' + API_KEY)
       const result = await response.json()
 
       if (response.ok) {
