@@ -10,7 +10,8 @@ import getLocation from './Location';
 const API_KEY = ''
 // Nearby Search
 const TYPE = 'restaurant'
-const RADIUS = '300' // meters
+const RADIUS = '1000' // meters
+const LOCATION = '60.16083241285829%2C24.942086204628993' // ~ Helsinki centrum
 
 
 const Stack = createStackNavigator();
@@ -104,7 +105,11 @@ export default function HomeScreen({ navigation }) {
           data={restaurants}
           sliderWidth={350}
           itemWidth={350}
-          renderItem={({ item, index }) => {
+          renderItem={({ item, index }) => { 
+           /* const o = item.opening_hours.open_now; 
+            const open = 'Open'; 
+            const closed = 'Closed';
+            //o ? open : closed;*/
             return (
               <View style={[styles.card, styles.boxShadow]}>
                 <View>
@@ -118,7 +123,8 @@ export default function HomeScreen({ navigation }) {
                 <View style={styles.cardContent}>
                   <Text style={styles.cardTitle}>{item.name}</Text>
                   <Text style={styles.cardAddress}>{item.vicinity}</Text>
-                  <Text>Rating: {item.rating}</Text>
+                  <Text>Rating: {item.rating}</Text> 
+                  <Text> </Text>
                   <Button title={item.vicinity}
                     onPress={() => navigation.navigate('RestaurantLocation', {
                       info: item

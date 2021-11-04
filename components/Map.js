@@ -35,7 +35,7 @@ export default function Map() {
        latitude: location.latitude, 
        longitude: location.longitude
        }}
-       title='Haaga-Helia'/> 
+       title='You are here'/> 
       </MapView>
       }
     </View>
