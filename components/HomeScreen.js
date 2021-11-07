@@ -37,7 +37,7 @@ export default function HomeScreen({ navigation }) {
         console.log('Number of restaurants fetched: ' + result.results.length)
 
         // Load photos and filter out restaurants without any
-        setRestaurantsPhotos(result.results)
+        setRestaurantsWithPhotos(result.results)
       } else {
         console.log("RESPONSE NOT OK Couldn't load restaurants: " + result.message)
       }
@@ -46,7 +46,7 @@ export default function HomeScreen({ navigation }) {
     }
   }
 
-  const setRestaurantsPhotos = (data) => {
+  const setRestaurantsWithPhotos = (data) => {
     let newRestaurants = []
     let newPhotos = []
 
