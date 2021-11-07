@@ -11,6 +11,8 @@ const API_KEY = ''
 // Nearby Search
 const TYPE = 'restaurant'
 const RADIUS = '300' // meters
+// Photo max width
+const max_width = '400'
 
 
 const Stack = createStackNavigator();
@@ -35,7 +37,7 @@ export default function HomeScreen({ navigation }) {
         console.log('Number of restaurants fetched: ' + result.results.length)
 
         // Load photos and filter out restaurants without any
-        filterRestaurantData(result.results)
+        setRestaurantsPhotos(result.results)
       } else {
         console.log("RESPONSE NOT OK Couldn't load restaurants: " + result.message)
       }
@@ -44,7 +46,7 @@ export default function HomeScreen({ navigation }) {
     }
   }
 
-  const filterRestaurantData = (data) => {
+  const setRestaurantsPhotos = (data) => {
     let newRestaurants = []
     let newPhotos = []
 
@@ -64,9 +66,8 @@ export default function HomeScreen({ navigation }) {
   }
 
   const loadPhoto = (reference) => {
-    const max_width = '400'
+    
     const photos_url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${max_width}&photo_reference=${reference}&key=${API_KEY}`
-
     return photos_url
   }
 

@@ -6,8 +6,6 @@ import getLocation from './Location';
 
 export default function Map() {
   const [location, setLocation] = useState({
-    latitude:0,
-    longitude:0,
     latitudeDelta:0.0322,
     longitudeDelta:0.0221,
   });
@@ -16,11 +14,10 @@ export default function Map() {
 
   useEffect(() => {
     (async () => {
-      let location = await getLocation()
-      setLocation({latitude: location.latitude,
-      longitude:location.longitude,
-      latitudeDelta:0.0322,
-      longitudeDelta:0.0221});
+      let userLocation = await getLocation()
+      setLocation({...location, latitude: userLocation.latitude,
+      longitude: userLocation.longitude,
+      });
     })();
   }, []);
 
