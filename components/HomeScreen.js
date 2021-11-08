@@ -49,7 +49,6 @@ export default function HomeScreen({ navigation }) {
   const setRestaurantsWithPhotos = async (data) => {
     //Filter all restaurants from data that have photos
     let filteredRestaurants = data.filter(restaurant => restaurant.photos != undefined)
-    console.log(filteredRestaurants.length)
     //Promise.all called to convert an array of promises to a single promise before awaiting it, so it can be awaited in the first place
     let restaurantPhotos = await Promise.all(filteredRestaurants.map( (restaurant) => {
       return restaurant.photos = loadPhotos(restaurant.place_id)
