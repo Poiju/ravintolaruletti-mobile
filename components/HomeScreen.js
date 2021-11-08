@@ -7,19 +7,17 @@ import { createStackNavigator } from '@react-navigation/stack';
 import getLocation from './Location';
 
 // Google Places API call parameters
-const API_KEY = ''
+const API_KEY = 'AIzaSyCPHoJ5tQvt-TDVfCk2Jwaa2tjxOL6HcPk'
 // Nearby Search
 const TYPE = 'restaurant'
 const RADIUS = '300' // meters
 // Photo max width
-const max_width = '400'
-
+const PHOTO_WIDTH = '400'
 
 const Stack = createStackNavigator();
 
 export default function HomeScreen({ navigation }) {
   const [restaurants, setRestaurants] = useState([])
-  const [photos, setPhotos] = useState([])
 
   useEffect(() => {
     loadRestaurants()
@@ -27,9 +25,9 @@ export default function HomeScreen({ navigation }) {
 
   }, [])
 
-  async function loadRestaurants() {
+  const loadRestaurants = async () => {
     try {
-      const loc = await getLocation(); 
+      const loc = await getLocation();
       const response = await fetch('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + loc.latitude + '%2C' + loc.longitude + '&radius=' + RADIUS + '&type=' + TYPE + '&key=' + API_KEY)
       const result = await response.json()
 
@@ -48,27 +46,51 @@ export default function HomeScreen({ navigation }) {
 
   const setRestaurantsWithPhotos = (data) => {
     let newRestaurants = []
-    let newPhotos = []
 
     for (let i = 0; i < data.length; i++) {
       // Check if restaurant has photos
       if (data[i].photos) {
-        // Create image URL for the first image in array
-        let photo = loadPhoto(data[i].photos[0].photo_reference)
-        newPhotos = [...newPhotos, photo]
+        // Return array of photo urls
+        let photoUrls = loadPhotos(data[i].place_id)
+
+        console.log('PhotoUrls: ' + photoUrls)
+        data[i].photos = photoUrls
+
         newRestaurants = [...newRestaurants, data[i]]
       }
     }
 
+    console.log(newRestaurants)
     // Keep only restaurants with photos
     setRestaurants(newRestaurants)
-    setPhotos(newPhotos)
   }
 
-  const loadPhoto = (reference) => {
-    
-    const photos_url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${max_width}&photo_reference=${reference}&key=${API_KEY}`
-    return photos_url
+  const loadPhotos = async (placeId) => {
+    try {
+      // Google Places API Search (used for fetching restaurants) returns only a single photo.
+      // We need to additionally use Place Details to get up to 10 photos per restaurant (API limitation)
+      const fields = 'photos'
+      const placeDetailUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=${fields}&key=${API_KEY}`
+
+      // Fetch photo array
+      const response = await fetch(placeDetailUrl)
+
+      if (!response.ok) {
+        throw new Error('HTTP ERROR! status: ' + response.status)
+      }
+
+      const result = await response.json()
+      const photoRefArray = result.result.photos
+
+      // Create new array with direct links to photos
+      const photoUrls = photoRefArray.map(photoRef => {
+        return `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${PHOTO_WIDTH}&photo_reference=${photoRef.photo_reference}&key=${API_KEY}`
+      })
+
+      return photoUrls
+    } catch (error) {
+      console.log('ERROR loading photos: ' + error)
+    }
   }
 
   // Necessary for unified iOS and Android box shadow
@@ -112,7 +134,7 @@ export default function HomeScreen({ navigation }) {
                   <ImageBackground
                     style={styles.image}
                     imageStyle={styles.imageBackground}
-                    source={{ uri: photos[index] }}
+                    source={{ uri: item.photos[0] }}
                   >
                   </ImageBackground>
                 </View>
@@ -136,6 +158,15 @@ export default function HomeScreen({ navigation }) {
     </SafeAreaView>
   )
 };
+
+/*
+<ImageBackground
+                    style={styles.image}
+                    imageStyle={styles.imageBackground}
+                    source={{ uri: item.photos[0] }}
+                  >
+                  </ImageBackground>
+*/
 
 const styles = StyleSheet.create({
   container: {
