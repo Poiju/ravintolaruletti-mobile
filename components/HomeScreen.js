@@ -6,15 +6,16 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import getLocation from './Location';
 import Slideshow from 'react-native-image-slider-show';
+//import { API_TOKEN } from 'react-native-dotenv'
 
 // Google Places API call parameters
-const API_KEY = ''
+const API_KEY = ""
 // Nearby Search
 const TYPE = 'restaurant'
-const RADIUS = '300' // meters
+const RADIUS = '500' // meters
 // Photo max width
 const PHOTO_WIDTH = '400'
-
+//console.log(API_KEY)
 const Stack = createStackNavigator();
 
 export default function HomeScreen({ navigation }) {
@@ -46,21 +47,16 @@ export default function HomeScreen({ navigation }) {
   }
 
   const setRestaurantsWithPhotos = async (data) => {
-    let newRestaurants = []
+    //Filter all restaurants from data that have photos
+    let filteredRestaurants = data.filter(restaurant => restaurant.photos != undefined)
+    console.log(filteredRestaurants.length)
+    //Promise.all called to convert an array of promises to a single promise before awaiting it, so it can be awaited in the first place
+    let restaurantPhotos = await Promise.all(filteredRestaurants.map( (restaurant) => {
+      return restaurant.photos = loadPhotos(restaurant.place_id)
+      
+    }))
 
-    for (let i = 0; i < data.length; i++) {
-      // Check if restaurant has photos
-      if (data[i].photos) {
-        // Return array of photo urls
-        let photoUrls = await loadPhotos(data[i].place_id)
-        data[i].photos = photoUrls
-
-        newRestaurants = [...newRestaurants, data[i]]
-      }
-    }
-
-    console.log(newRestaurants)
-    setRestaurants(newRestaurants)
+  setRestaurants(filteredRestaurants)
   }
 
   const loadPhotos = async (placeId) => {
@@ -132,7 +128,7 @@ export default function HomeScreen({ navigation }) {
                   <ImageBackground
                     style={styles.image}
                     imageStyle={styles.imageBackground}
-                    source={{ uri: item.photos[0] }}
+                    source={{ uri: item.photos._W[0] }}
                   >
                   </ImageBackground>
                 </View>
