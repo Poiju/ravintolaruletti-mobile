@@ -5,6 +5,7 @@ import RestaurantLocation from './RestaurantLocation';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import getLocation from './Location';
+import Slideshow from 'react-native-image-slider-show';
 
 // Google Places API call parameters
 const API_KEY = ''
@@ -44,16 +45,14 @@ export default function HomeScreen({ navigation }) {
     }
   }
 
-  const setRestaurantsWithPhotos = (data) => {
+  const setRestaurantsWithPhotos = async (data) => {
     let newRestaurants = []
 
     for (let i = 0; i < data.length; i++) {
       // Check if restaurant has photos
       if (data[i].photos) {
         // Return array of photo urls
-        let photoUrls = loadPhotos(data[i].place_id)
-
-        console.log('PhotoUrls: ' + photoUrls)
+        let photoUrls = await loadPhotos(data[i].place_id)
         data[i].photos = photoUrls
 
         newRestaurants = [...newRestaurants, data[i]]
@@ -61,7 +60,6 @@ export default function HomeScreen({ navigation }) {
     }
 
     console.log(newRestaurants)
-    // Keep only restaurants with photos
     setRestaurants(newRestaurants)
   }
 
@@ -158,15 +156,6 @@ export default function HomeScreen({ navigation }) {
     </SafeAreaView>
   )
 };
-
-/*
-<ImageBackground
-                    style={styles.image}
-                    imageStyle={styles.imageBackground}
-                    source={{ uri: item.photos[0] }}
-                  >
-                  </ImageBackground>
-*/
 
 const styles = StyleSheet.create({
   container: {
