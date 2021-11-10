@@ -5,73 +5,29 @@ import RestaurantLocation from './RestaurantLocation';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import getLocation from './Location';
-import Map from './Map';
-
-// Google Places API call parameters
-const API_KEY = 'AIzaSyBACLEeX8UlAUazX0IutzWht6fSW4_0vww'
-// Nearby Search
-const TYPE = 'restaurant'
-const RADIUS = '1000' // meters
-const LOCATION = '60.16083241285829%2C24.942086204628993' // ~ Helsinki centrum
+import Slideshow from 'react-native-image-slider-show';
+import getRestaurants from './RestaurantAPI';
+//import { API_TOKEN } from 'react-native-dotenv'
 
 
+
+//console.log(API_KEY)
 const Stack = createStackNavigator();
 
 export default function HomeScreen({ navigation }) {
   const [restaurants, setRestaurants] = useState([])
-  const [photos, setPhotos] = useState([])
-  
 
   useEffect(() => {
-    loadRestaurants()
+    fetchRestaurants()
     generateBoxShadowStyle(0, 5, '#9aa0b9', 0.05, 13, 20, '#9aa0b9')
-
+    console.log(restaurants)
   }, [])
 
-  async function loadRestaurants() {
-    try {
-      const loc = await getLocation(); 
-      const response = await fetch('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + loc.latitude + '%2C' + loc.longitude + '&radius=' + RADIUS + '&type=' + TYPE + '&key=' + API_KEY)
-      const result = await response.json()
 
-      if (response.ok) {
-        console.log('Number of restaurants fetched: ' + result.results.length)
+  const fetchRestaurants = async () => {
 
-        // Load photos and filter out restaurants without any
-        filterRestaurantData(result.results)
-      } else {
-        console.log("RESPONSE NOT OK Couldn't load restaurants: " + result.message)
-      }
-    } catch (error) {
-      console.log("ERROR Couldn't load restaurants: " + error.message)
-    }
-  }
-
-  const filterRestaurantData = (data) => {
-    let newRestaurants = []
-    let newPhotos = []
-
-    for (let i = 0; i < data.length; i++) {
-      // Check if restaurant has photos
-      if (data[i].photos) {
-        // Create image URL for the first image in array
-        let photo = loadPhoto(data[i].photos[0].photo_reference)
-        newPhotos = [...newPhotos, photo]
-        newRestaurants = [...newRestaurants, data[i]]
-      }
-    }
-
-    // Keep only restaurants with photos
-    setRestaurants(newRestaurants)
-    setPhotos(newPhotos) 
-  } 
-
-
-  const loadPhoto = (reference) => {
-    const max_width = '400'
-    const photos_url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${max_width}&photo_reference=${reference}&key=${API_KEY}`
-
-    return photos_url
+     let data = await getRestaurants()
+     setRestaurants(data)
   }
 
   // Necessary for unified iOS and Android box shadow
@@ -116,7 +72,7 @@ export default function HomeScreen({ navigation }) {
                   <ImageBackground
                     style={styles.image}
                     imageStyle={styles.imageBackground}
-                    source={{ uri: photos[index] }}
+                    source={{ uri: item.photos._W[0] }}
                   >
                   </ImageBackground>
                 </View>

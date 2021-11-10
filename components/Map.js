@@ -16,40 +16,18 @@ export default function Map( ) {
   console.log('mi' + k);
 
   const [location, setLocation] = useState({
-    latitude:0,
-    longitude:0,
     latitudeDelta:0.0322,
     longitudeDelta:0.0221,
   });
 
-  useEffect(() => {  
-    if(k != undefined) {
-    console.log('viel ' + k.length)
-    setTakenRestaurants(k);
-    console.log(takenRestaurants.length)
-    }
-    o();
-  }, [x]); 
-
-  async function o () {
-    try {
-
-      let location = await getLocation()
-      setLocation({latitude: location.latitude,
-      longitude:location.longitude,
-      latitudeDelta:0.0322,
-      longitudeDelta:0.0221}); 
-      //console.log(restaurants)  
-    }catch (error) {
-      console.log("ERROR Couldn't load restaurants: " + error.message)
-    }; 
-  }
-
-  function r () {
-    console.log('tas ois: ' + takenRestaurants.length)
-    //setTakenRestaurants(restaurants);
-  } 
-
+  useEffect(() => {
+    (async () => {
+      let userLocation = await getLocation()
+      setLocation({...location, latitude: userLocation.latitude,
+      longitude: userLocation.longitude,
+      });
+    })();
+  }, []);
 
 
   return ( 
