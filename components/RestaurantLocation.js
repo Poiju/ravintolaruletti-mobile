@@ -8,9 +8,6 @@ export default function RestaurantLocation( {route, navigation} ) {
 
 
 const { info } = route.params;
-console.log(info.name); 
-console.log(info.geometry.location.lat);
-console.log(info.geometry.location.lng);
 
 const loc = {
   latitude: info.geometry.location.lat, 
@@ -23,9 +20,6 @@ const marker = {
   latitude: loc.latitude, 
   longitude: loc.longitude,
 }    
-
-
-
 
   return ( 
     <View style={{height:100, flex:1}}>

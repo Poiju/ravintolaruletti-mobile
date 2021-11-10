@@ -5,9 +5,10 @@ import RestaurantLocation from './RestaurantLocation';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import getLocation from './Location';
+import Map from './Map';
 
 // Google Places API call parameters
-const API_KEY = ''
+const API_KEY = 'AIzaSyBACLEeX8UlAUazX0IutzWht6fSW4_0vww'
 // Nearby Search
 const TYPE = 'restaurant'
 const RADIUS = '1000' // meters
@@ -19,6 +20,7 @@ const Stack = createStackNavigator();
 export default function HomeScreen({ navigation }) {
   const [restaurants, setRestaurants] = useState([])
   const [photos, setPhotos] = useState([])
+  
 
   useEffect(() => {
     loadRestaurants()
@@ -61,8 +63,9 @@ export default function HomeScreen({ navigation }) {
 
     // Keep only restaurants with photos
     setRestaurants(newRestaurants)
-    setPhotos(newPhotos)
-  }
+    setPhotos(newPhotos) 
+  } 
+
 
   const loadPhoto = (reference) => {
     const max_width = '400'
@@ -100,16 +103,13 @@ export default function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fff', paddingTop: 50, }}>
       <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', }}>
+        
         <Carousel
           layout={'default'}
           data={restaurants}
           sliderWidth={350}
           itemWidth={350}
           renderItem={({ item, index }) => { 
-           /* const o = item.opening_hours.open_now; 
-            const open = 'Open'; 
-            const closed = 'Closed';
-            //o ? open : closed;*/
             return (
               <View style={[styles.card, styles.boxShadow]}>
                 <View>
@@ -120,7 +120,7 @@ export default function HomeScreen({ navigation }) {
                   >
                   </ImageBackground>
                 </View>
-                <View style={styles.cardContent}>
+                <View style={styles.cardContent}> 
                   <Text style={styles.cardTitle}>{item.name}</Text>
                   <Text style={styles.cardAddress}>{item.vicinity}</Text>
                   <Text>Rating: {item.rating}</Text> 
@@ -136,8 +136,9 @@ export default function HomeScreen({ navigation }) {
               </View>
             )
           }}
-        />
-      </View>
+        /> 
+      </View> 
+      
     </SafeAreaView>
   )
 };
@@ -205,3 +206,7 @@ const styles = StyleSheet.create({
   },
   boxShadow: {}// See generateBoxShadowStyle function
 });
+
+
+/* {restaurants != undefined &&
+        <Map restaurants={restaurants}/> }*/

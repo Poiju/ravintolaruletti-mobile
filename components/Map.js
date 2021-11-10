@@ -1,28 +1,55 @@
 import React, { useState, useEffect } from 'react';
-import { Platform, Text, View, StyleSheet } from 'react-native';
+import { Platform, Text, View, StyleSheet, Button } from 'react-native';
 import * as Location from 'expo-location'; 
 import MapView, { Marker } from 'react-native-maps';  
-import getLocation from './Location';
+import getLocation from './Location'; 
+import {restaurants} from './HomeScreen';
 
-export default function Map() {
+export default function Map( ) {
+
+  //console.log(restaurants)
+  const {k} = {restaurants};
+  const [takenRestaurants, setTakenRestaurants] = useState([]);
+  
+  const x = 1;
+
+  console.log('mi' + k);
+
   const [location, setLocation] = useState({
     latitude:0,
     longitude:0,
     latitudeDelta:0.0322,
     longitudeDelta:0.0221,
   });
-  
-  
 
-  useEffect(() => {
-    (async () => {
+  useEffect(() => {  
+    if(k != undefined) {
+    console.log('viel ' + k.length)
+    setTakenRestaurants(k);
+    console.log(takenRestaurants.length)
+    }
+    o();
+  }, [x]); 
+
+  async function o () {
+    try {
+
       let location = await getLocation()
       setLocation({latitude: location.latitude,
       longitude:location.longitude,
       latitudeDelta:0.0322,
-      longitudeDelta:0.0221});
-    })();
-  }, []);
+      longitudeDelta:0.0221}); 
+      //console.log(restaurants)  
+    }catch (error) {
+      console.log("ERROR Couldn't load restaurants: " + error.message)
+    }; 
+  }
+
+  function r () {
+    console.log('tas ois: ' + takenRestaurants.length)
+    //setTakenRestaurants(restaurants);
+  } 
+
 
 
   return ( 
@@ -35,9 +62,23 @@ export default function Map() {
        latitude: location.latitude, 
        longitude: location.longitude
        }}
-       title='You are here'/> 
+       title='You are here'/>  
       </MapView>
-      }
+      } 
+      <MapView>
+        {k.map((restaurant, index) => (
+          <Marker
+            key={index}
+            coordinate={{
+              latitude: restaurant.geometry.location.lat, 
+              longitude: restaurant.geometry.location.lng
+              }}
+            title='juu'
+          />
+        ))}
+      </MapView>     
+      <Button title='Ravintolat lähelläni'
+      onPress={() => r()}> </Button>
     </View>
   );
 }
@@ -55,3 +96,21 @@ const styles = StyleSheet.create({
   },
 });
 
+/*<Marker coordinate={{
+       latitude: restaurants[0].geometry.location.lat, 
+       longitude: restaurants[0].geometry.location.lng
+       }}
+       
+  <MapView>
+        {takenRestaurants.map((restaurant, index) => (
+          <Marker
+            key={index}
+            coordinate={{
+              latitude: restaurant.geometry.location.lat, 
+              longitude: restaurant.geometry.location.lng
+              }}
+            title='juu'
+          />
+        ))}
+      </MapView>     
+       */
