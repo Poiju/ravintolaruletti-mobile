@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, Button, Alert, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, Button, ImageBackground } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
-import RestaurantLocation from './RestaurantLocation';
-import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import getLocation from './Location';
-import Slideshow from 'react-native-image-slider-show';
 import getRestaurants from './RestaurantAPI';
+import getLocation from './Location';
+import Swiper from 'react-native-swiper';
+import { Ionicons } from '@expo/vector-icons'
 //import { API_TOKEN } from 'react-native-dotenv'
-
-
 
 //console.log(API_KEY)
 const Stack = createStackNavigator();
@@ -19,77 +16,108 @@ export default function HomeScreen({ navigation }) {
 
   useEffect(() => {
     fetchRestaurants()
-    generateBoxShadowStyle(0, 5, '#9aa0b9', 0.05, 13, 20, '#9aa0b9')
-    console.log(restaurants)
   }, [])
 
-
   const fetchRestaurants = async () => {
-
-     let data = await getRestaurants()
-     setRestaurants(data)
+    let data = await getRestaurants()
+    setRestaurants(data)
   }
 
-  // Necessary for unified iOS and Android box shadow
-  // Source: https://blog.logrocket.com/applying-box-shadows-in-react-native/
-  const generateBoxShadowStyle = (
-    xOffset,
-    yOffset,
-    shadowColorIos,
-    shadowOpacity,
-    shadowRadius,
-    elevation,
-    shadowColorAndroid,
-  ) => {
-    if (Platform.OS === 'ios') {
-      styles.boxShadow = {
-        shadowColor: shadowColorIos,
-        shadowOffset: { width: xOffset, height: yOffset },
-        shadowOpacity,
-        shadowRadius,
-      };
-    } else if (Platform.OS === 'android') {
-      styles.boxShadow = {
-        elevation,
-        shadowColor: shadowColorAndroid,
-      };
-    }
-  };
+  // Iterable item for card carousel
+  const renderItem = ({ item, index }) => {
+    return (
+      <View style={styles.card}>
+        <View style={styles.imageSliderContainer}>
+
+          <Swiper
+            height={230}
+            horizontal={false}
+            dot={
+              <View
+                style={{
+                  backgroundColor: 'rgba(0,0,0,.2)',
+                  width: 8,
+                  height: 8,
+                  borderRadius: 4,
+                  borderWidth: 1,
+                  borderColor: '#ededed',
+                  marginLeft: 3,
+                  marginRight: 3,
+                  marginTop: 3,
+                  marginBottom: 3,
+                }}
+              />
+            }
+            activeDot={
+              <View
+                style={{
+                  backgroundColor: '#007aff',
+                  width: 8,
+                  height: 8,
+                  borderRadius: 4,
+                  borderWidth: 1,
+                  borderColor: '#ededed',
+                  marginLeft: 3,
+                  marginRight: 3,
+                  marginTop: 3,
+                  marginBottom: 3,
+                }}
+              />
+            }
+          >
+            {
+              item.photos._W.map((photo, index) => {
+                return (
+                  <ImageBackground
+                    source={{ uri: photo }}
+                    resizeMode="cover"
+                    style={styles.imageBackground}
+                    key={index}
+                  >
+                  </ImageBackground>
+                )
+              })
+            }
+          </Swiper>
+        </View>
+
+        <View style={styles.cardContent}>
+          <View>
+            <Text style={styles.cardTitle}>{item.name}</Text>
+            <Text style={styles.cardAddress}>{item.vicinity}</Text>
+            {
+              item.rating &&
+              <View style={styles.cardRating}>
+                <Ionicons name="md-star" size={18} color="#eda800" style={styles.cardRatingIcon} />
+                <Text style={styles.cardRatingText}>Rating: {item.rating}</Text>
+              </View>
+            }
+            <View style={{ marginBottom: 15 }}></View>
+          </View>
+          <View>
+            <Button
+              style={styles.cardButton}
+              title={'Go to map'}
+              onPress={() => navigation.navigate('RestaurantLocation', {
+                info: item
+              })}
+            />
+          </View>
+        </View>
+
+      </View>
+    )
+  }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff', paddingTop: 50, }}>
-      <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+      <View style={{ flex: 1, justifyContent: 'center', marginVertical: 50 }}>
         <Carousel
           layout={'default'}
           data={restaurants}
           sliderWidth={350}
           itemWidth={350}
-          renderItem={({ item, index }) => {
-            return (
-              <View style={[styles.card, styles.boxShadow]}>
-                <View>
-                  <ImageBackground
-                    style={styles.image}
-                    imageStyle={styles.imageBackground}
-                    source={{ uri: item.photos._W[0] }}
-                  >
-                  </ImageBackground>
-                </View>
-                <View style={styles.cardContent}>
-                  <Text style={styles.cardTitle}>{item.name}</Text>
-                  <Text style={styles.cardAddress}>{item.vicinity}</Text>
-                  <Text>Rating: {item.rating}</Text>
-                  <Button title={item.vicinity}
-                    onPress={() => navigation.navigate('RestaurantLocation', {
-                      info: item
-                    }
-                    )
-                    }
-                  />
-                </View>
-              </View>
-            )
-          }}
+          renderItem={renderItem}
         />
       </View>
     </SafeAreaView>
@@ -103,59 +131,39 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  image: {
-    width: 300,
-    height: 250,
-  },
-  imageBackground: {
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5
-  },
   card: {
     backgroundColor: '#fff',
     borderRadius: 5,
-    height: 425,
     marginLeft: 25,
-    marginRight: 25
+    marginRight: 25,
+    borderWidth: 1,
+    borderColor: '#dbdbdb',
+    flex: 1,
   },
-  cardContent: {
-    paddingVertical: 25,
-    paddingHorizontal: 30,
-    backgroundColor: '#fff'
-  },
-  cardTitle: {
-    fontSize: 24,
-    marginBottom: 10
-  },
-  cardAddress: {
-    marginBottom: 5
-  },
-  image: {
-    width: 300,
-    height: 250,
+  imageSliderContainer: {
+    height: 230
   },
   imageBackground: {
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5
-  },
-  card: {
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    height: 425,
-    marginLeft: 25,
-    marginRight: 25
+    flex: 1
   },
   cardContent: {
+    flex: 1,
     paddingVertical: 25,
     paddingHorizontal: 30,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    justifyContent: 'space-between'
   },
   cardTitle: {
-    fontSize: 24,
+    fontSize: 22,
     marginBottom: 10
   },
   cardAddress: {
-    marginBottom: 5
+    marginBottom: 6
   },
-  boxShadow: {}// See generateBoxShadowStyle function
+  cardRating: {
+    flexDirection: 'row',
+  },
+  cardRatingText: {
+    paddingLeft: 5
+  }
 });
