@@ -25,7 +25,6 @@ export default async function getRestaurants(nextPage = nextPageToken) {
       // Load photos and filter out restaurants without any
       nextPageToken = result.next_page_token
       let restaurants = await filterRestaurantsWithPhotos(result.results)
-      console.log(api_url)
       return restaurants
     } else {
       console.log("RESPONSE NOT OK Couldn't load restaurants: " + result.message)
@@ -46,7 +45,6 @@ const filterRestaurantsWithPhotos = async (data) => {
     return restaurant.photos = loadPhotos(restaurant.place_id)
 
   }))
-  console.log(filteredRestaurants.length)
   return filteredRestaurants
 
 }

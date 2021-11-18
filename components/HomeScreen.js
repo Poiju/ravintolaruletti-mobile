@@ -22,15 +22,19 @@ export default function HomeScreen({ navigation }) {
     
   }  
    
+  //Fetch more restaurants
   const getMoreRestaurants = async () => {
+    //if user is on the last restaurant of the "page"
     if (carousel && carousel.currentIndex == restaurants.length-1) {
-      let last = restaurants[restaurants.length-1]   
+      //Getting the last restaurant of the previous page
+      let last = restaurants[restaurants.length-1]
       let newRestaurants = await getRestaurants()
+      //Add last to the beginning of the next "page"
       newRestaurants.unshift(last)
       setRestaurants(newRestaurants)
       carousel.snapToItem(0, false, false)
     } else {
-      console.log(carousel.currentIndex)
+      console.log("Currently on index: " + carousel.currentIndex)
     }
   }
 
