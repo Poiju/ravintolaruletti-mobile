@@ -45,7 +45,17 @@ const filterRestaurantsWithPhotos = async (data) => {
     return restaurant.photos = loadPhotos(restaurant.place_id)
 
   }))
-  return filteredRestaurants
+  let filterUnused = filteredRestaurants.map((restaurant) => {
+    return {
+      location : restaurant.geometry.location,
+      name : restaurant.name,
+      rating : restaurant.rating,
+      vicinity : restaurant.vicinity,
+      photos : restaurant.photos._W
+    }
+  })
+     
+  return filterUnused
 
 }
 

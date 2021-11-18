@@ -80,7 +80,7 @@ export default function HomeScreen({ navigation }) {
             }
           >
             {
-              item.photos._W.map((photo, index) => {
+              item.photos.map((photo, index) => {
                 return (
                   <ImageBackground
                     source={{ uri: photo }}

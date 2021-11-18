@@ -9,12 +9,12 @@ export default function RestaurantLocation({ route, navigation }) {
 
   const { info } = route.params;
   console.log(info.name);
-  console.log(info.geometry.location.lat);
-  console.log(info.geometry.location.lng);
+  console.log(info.location.lat);
+  console.log(info.location.lng);
 
   const loc = {
-    latitude: info.geometry.location.lat,
-    longitude: info.geometry.location.lng,
+    latitude: info.location.lat,
+    longitude: info.location.lng,
     latitudeDelta: 0.0322,
     longitudeDelta: 0.0221,
   };
