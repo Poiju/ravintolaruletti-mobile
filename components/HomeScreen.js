@@ -3,16 +3,14 @@ import { View, Text, StyleSheet, SafeAreaView, Button, ImageBackground } from 'r
 import Carousel from 'react-native-snap-carousel';
 import { createStackNavigator } from '@react-navigation/stack';
 import getRestaurants from './RestaurantAPI';
-import getLocation from './Location';
 import Swiper from 'react-native-swiper';
 import { Ionicons } from '@expo/vector-icons'
-//import { API_TOKEN } from 'react-native-dotenv'
 
-//console.log(API_KEY)
 const Stack = createStackNavigator();
 
 export default function HomeScreen({ navigation }) {
   const [restaurants, setRestaurants] = useState([])
+  const [carousel, setCarousel] = useState(null);
 
   useEffect(() => {
     fetchRestaurants()
@@ -21,6 +19,19 @@ export default function HomeScreen({ navigation }) {
   const fetchRestaurants = async () => {
     let data = await getRestaurants()
     setRestaurants(data)
+    
+  }  
+   
+  const getMoreRestaurants = async () => {
+    if (carousel && carousel.currentIndex == restaurants.length-1) {
+      let last = restaurants[restaurants.length-1]   
+      let newRestaurants = await getRestaurants()
+      newRestaurants.unshift(last)
+      setRestaurants(newRestaurants)
+      carousel.snapToItem(0, false, false)
+    } else {
+      console.log(carousel.currentIndex)
+    }
   }
 
   // Iterable item for card carousel
@@ -28,7 +39,6 @@ export default function HomeScreen({ navigation }) {
     return (
       <View style={styles.card}>
         <View style={styles.imageSliderContainer}>
-
           <Swiper
             height={230}
             horizontal={false}
@@ -109,6 +119,8 @@ export default function HomeScreen({ navigation }) {
     )
   }
 
+
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
       <View style={{ flex: 1, justifyContent: 'center', marginVertical: 50 }}>
@@ -118,6 +130,8 @@ export default function HomeScreen({ navigation }) {
           sliderWidth={350}
           itemWidth={350}
           renderItem={renderItem}
+          ref={c => { setCarousel(c); }} 
+          onSnapToItem={() => getMoreRestaurants()}
         />
       </View>
     </SafeAreaView>

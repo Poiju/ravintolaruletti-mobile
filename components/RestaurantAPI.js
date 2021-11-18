@@ -3,22 +3,29 @@ import getLocation from './Location';
 const TYPE = 'restaurant'
 // Google Places API call parameters
 const API_KEY = ""
-// Nearby Search
-const RADIUS = '200' // meters
 // Photo max width
 const PHOTO_WIDTH = '400'
+//Rank by which order
+const RANKBY = 'distance'
+//Next page token
+let nextPageToken = false
 
-export default async function getRestaurants() {
+export default async function getRestaurants(nextPage = nextPageToken) {
   try {
     const loc = await getLocation();
-    const response = await fetch('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + loc.latitude + '%2C' + loc.longitude + '&radius=' + RADIUS + '&type=' + TYPE + '&key=' + API_KEY)
+    const api_url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${loc.latitude}%2C${loc.longitude}&rankby=${RANKBY}&type=${TYPE}&key=${API_KEY}`
+    //Fetch with or without nextpagetoken
+    let response = (!nextPage) ? await fetch(api_url) : await fetch(api_url+'&pagetoken=' + nextPage)
+    
     const result = await response.json()
-
+    
     if (response.ok) {
       console.log('Number of restaurants fetched: ' + result.results.length)
 
       // Load photos and filter out restaurants without any
+      nextPageToken = result.next_page_token
       let restaurants = await filterRestaurantsWithPhotos(result.results)
+      console.log(api_url)
       return restaurants
     } else {
       console.log("RESPONSE NOT OK Couldn't load restaurants: " + result.message)
@@ -26,7 +33,10 @@ export default async function getRestaurants() {
   } catch (error) {
     console.log("ERROR Couldn't load restaurants: " + error.message)
   }
+
 }
+
+//console.log(api_url)
 
 const filterRestaurantsWithPhotos = async (data) => {
   //Filter all restaurants from data that have photos
@@ -36,6 +46,7 @@ const filterRestaurantsWithPhotos = async (data) => {
     return restaurant.photos = loadPhotos(restaurant.place_id)
 
   }))
+  console.log(filteredRestaurants.length)
   return filteredRestaurants
 
 }
