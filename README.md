@@ -30,8 +30,8 @@ Tiimi: Risto Lähteenkorva, Maisa Mäntyvaara, Krista Nyberg, Tomi Salo, Tuomas 
 * US1: "Tietojen etsijänä haluan pystyä selaamaan sovelluksessa dataa swaippaamalla"
 * US2: "Lounasruokailijana haluan nähdä sovelluksessa Helsinkin ravintoloita ja swaippailla niitä, jotta voisin löytää jonkin kiinnostavan ruokapaikan"
 * US3: "Lounasruokailijana haluan löytää vaivattomasti ja nopeasti ravintolan, joka on lähellä minua"
-~~* US4: "Trendien seuraajana haluan valita mahdollisimman hyvän näköisen ravintolan, jotta saan siitä hienoja kuvia Instagramiin"~~
-~~* US5: "Innokkaana kulinaristina haluan voida tehdä oman käyttäjäprofiilin sovellukseen"~~
+* ~~US4: "Trendien seuraajana haluan valita mahdollisimman hyvän näköisen ravintolan, jotta saan siitä hienoja kuvia Instagramiin"~~
+* ~~US5: "Innokkaana kulinaristina haluan voida tehdä oman käyttäjäprofiilin sovellukseen"~~
 
 ## Käyttöliittymäkuvat
 Käyttöliittymän rautalankamalli [täällä](http://wireframepro.mockflow.com/space/M0J2CZJDJmb)
