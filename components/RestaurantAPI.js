@@ -22,10 +22,13 @@ export default async function getRestaurants(nextPage = nextPageToken) {
     if (response.ok) {
       console.log('Number of restaurants fetched: ' + result.results.length)
 
-      // Load photos and filter out restaurants without any
+
+      //Set token of next page
       nextPageToken = result.next_page_token
-      let restaurants = await filterRestaurantsWithPhotos(result.results)
+      // Load photos and filter out restaurants without any
+      let restaurants = await getFilteredRestaurantsWithPhotos(result.results)
       return restaurants
+      
     } else {
       console.log("RESPONSE NOT OK Couldn't load restaurants: " + result.message)
     }
@@ -37,7 +40,7 @@ export default async function getRestaurants(nextPage = nextPageToken) {
 
 //console.log(api_url)
 
-const filterRestaurantsWithPhotos = async (data) => {
+const getFilteredRestaurantsWithPhotos = async (data) => {
   //Filter all restaurants from data that have photos
   let filteredRestaurants = data.filter(restaurant => restaurant.photos != undefined)
   //Promise.all called to convert an array of promises to a single promise before awaiting it, so it can be awaited in the first place
@@ -45,6 +48,7 @@ const filterRestaurantsWithPhotos = async (data) => {
     return restaurant.photos = loadPhotos(restaurant.place_id)
 
   }))
+  //Map only used data
   let filterUnused = filteredRestaurants.map((restaurant) => {
     return {
       location : restaurant.geometry.location,
