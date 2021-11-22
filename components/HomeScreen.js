@@ -30,6 +30,7 @@ export default function HomeScreen({ navigation }) {
      setRestaurants(data)
   }
 
+
   // Necessary for unified iOS and Android box shadow
   // Source: https://blog.logrocket.com/applying-box-shadows-in-react-native/
   const generateBoxShadowStyle = (

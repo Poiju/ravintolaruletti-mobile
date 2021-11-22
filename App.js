@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'; 
 import { createStackNavigator} from'@react-navigation/stack';
 import HomeScreen from './components/HomeScreen';
-import SettingsScreen from './components/SettingsScreen'; 
+import ProfileScreen from './components/ProfileScreen'; 
 import Map from './components/Map';
 import { Ionicons } from '@expo/vector-icons'; 
 import RestaurantLocation from './components/RestaurantLocation';
@@ -19,8 +19,8 @@ function Home() {
             let iconName;
             if (route.name === 'Home') {
               iconName = 'md-home';
-            } else if (route.name === 'Settings') {
-              iconName = 'md-settings';
+            } else if (route.name === 'Profile') {
+              iconName = 'person';
             } 
             else if (route.name === 'Map') {
              iconName = 'map';
@@ -30,7 +30,7 @@ function Home() {
          
         })}>
         <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Settings" component={SettingsScreen} /> 
+        <Tab.Screen name="Profile" component={ProfileScreen} /> 
         <Tab.Screen name="Map" component={Map} />   
       </Tab.Navigator> 
   );

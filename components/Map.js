@@ -3,60 +3,63 @@ import { Platform, Text, View, StyleSheet, Button } from 'react-native';
 import * as Location from 'expo-location'; 
 import MapView, { Marker } from 'react-native-maps';  
 import getLocation from './Location'; 
-import {restaurants} from './HomeScreen';
+import getRestaurants from './RestaurantAPI';
+import { Ionicons} from '@expo/vector-icons';    
+
 
 export default function Map( ) {
 
-  //console.log(restaurants)
-  const {k} = {restaurants};
+  
   const [takenRestaurants, setTakenRestaurants] = useState([]);
   
-  const x = 1;
-
-  console.log('mi' + k);
-
   const [location, setLocation] = useState({
     latitudeDelta:0.0322,
     longitudeDelta:0.0221,
   });
 
   useEffect(() => {
-    (async () => {
-      let userLocation = await getLocation()
-      setLocation({...location, latitude: userLocation.latitude,
-      longitude: userLocation.longitude,
-      });
-    })();
+    fetchRestaurants()
+    getLoc()
   }, []);
 
+  const fetchRestaurants = async () => {
+    let data = await getRestaurants()
+    setTakenRestaurants(data)
+ }
+
+ const getLoc = async () => {
+  let userLocation = await getLocation()
+  setLocation({...location, latitude: userLocation.latitude,
+  longitude: userLocation.longitude,
+  });
+}
 
   return ( 
     <View style={{height:100, flex:1}}>
-    {location.latitude != undefined && 
-    <MapView
-      style={{ flex: 1 }}
-      region={location}>  
-     <Marker coordinate={{
-       latitude: location.latitude, 
-       longitude: location.longitude
-       }}
-       title='You are here'/>  
-      </MapView>
-      } 
-      <MapView>
-        {k.map((restaurant, index) => (
+      <MapView
+        style={{ flex: 1 }}
+        region={location}>  
+        <Marker  coordinate={{
+          latitude: location.latitude, 
+          longitude: location.longitude}}
+          title='You are here'>
+          <View>
+            <Ionicons name={'happy'} size={30}/>
+          </View>  
+        </Marker>  
+        {takenRestaurants.map((restaurant, index) => (
           <Marker
             key={index}
             coordinate={{
               latitude: restaurant.geometry.location.lat, 
-              longitude: restaurant.geometry.location.lng
-              }}
-            title='juu'
-          />
+              longitude: restaurant.geometry.location.lng}}
+            title={restaurant.name}>  
+            <View >
+              <Ionicons name={'restaurant'} size={20}/>
+            </View>
+          </Marker>
         ))}
-      </MapView>     
-      <Button title='Ravintolat lähelläni'
-      onPress={() => r()}> </Button>
+      </MapView>  
     </View>
   );
 }

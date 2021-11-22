@@ -2,7 +2,7 @@ import getLocation from './Location';
 
 const TYPE = 'restaurant'
 // Google Places API call parameters
-const API_KEY = ""
+const API_KEY = "AIzaSyBACLEeX8UlAUazX0IutzWht6fSW4_0vww"
 // Nearby Search
 const RADIUS = '1000' // meters
 // Photo max width
