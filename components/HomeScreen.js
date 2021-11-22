@@ -23,7 +23,7 @@ export default function HomeScreen({ navigation }) {
   }  
    
   //Fetch more restaurants
-  const getMoreRestaurants = async () => {
+  const setMoreRestaurants = async () => {
     //if user is on the last restaurant of the "page"
     if (carousel && carousel.currentIndex == restaurants.length-1) {
       //Getting the last restaurant of the previous page
