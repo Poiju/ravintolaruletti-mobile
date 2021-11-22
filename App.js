@@ -1,17 +1,20 @@
 import React from 'react';
+import { View, Pressable, Button, StyleSheet } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'; 
-import { createStackNavigator} from'@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './components/HomeScreen';
 import ProfileScreen from './components/ProfileScreen'; 
 import Map from './components/Map';
-import { Ionicons } from '@expo/vector-icons'; 
+import { Ionicons } from '@expo/vector-icons';
 import RestaurantLocation from './components/RestaurantLocation';
+import LoginScreen from './components/LoginScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-function Home() {
+function Home({ navigation }) {
+
   return (
     <Tab.Navigator
         screenOptions={({ route }) => ({ // Navigator can be customized using screenOptions
@@ -37,22 +40,36 @@ function Home() {
 }
 
 export default function App() {
-
-  
   return (
     <NavigationContainer>
       <Stack.Navigator
-          initialRouteName="HomeScreen"
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Stack.Screen
-            name="RestaurantLocation"
-            component={RestaurantLocation}
-          />
-          <Stack.Screen name="HomeScreen" component={Home} />
-        </Stack.Navigator> 
+        initialRouteName="HomeScreen"
+        screenOptions={{
+          headerTitleAlign: 'center'
+        }}
+      >
+        <Stack.Screen
+          name="RestaurantLocation"
+          component={RestaurantLocation}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="HomeScreen"
+          component={Home}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="LoginScreen"
+          component={LoginScreen}
+          options={{ title: 'Login to account' }}
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  loginIconContainer: {
+    marginRight: 10
+  }
+})

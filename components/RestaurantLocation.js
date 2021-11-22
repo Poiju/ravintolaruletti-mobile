@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from 'react'; 
-import { StyleSheet, Text, View, Button, Alert } from 'react-native'; 
-import MapView, { Marker } from 'react-native-maps';  
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View, Button, Alert } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 
 
-export default function RestaurantLocation( {route, navigation} ) { 
+export default function RestaurantLocation({ route, navigation }) {
 
 
 const { info } = route.params;
 
-const loc = {
-  latitude: info.geometry.location.lat, 
-  longitude: info.geometry.location.lng,
-  latitudeDelta:0.0322,
-  longitudeDelta:0.0221, 
-  };  
+  const loc = {
+    latitude: info.location.lat,
+    longitude: info.location.lng,
+    latitudeDelta: 0.0322,
+    longitudeDelta: 0.0221,
+  };
 
-const marker = {
-  latitude: loc.latitude, 
-  longitude: loc.longitude,
-}    
+  const marker = {
+    latitude: loc.latitude,
+    longitude: loc.longitude,
+  }
 
   return ( 
     <View style={{height:100, flex:1}}>
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  }, 
+  },
   circle: {
     width: 90,
     height: 110,
@@ -51,10 +51,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-  }, 
+  },
   pinText: {
     marginBottom: 12,
     width: 30,
     height: 50,
-},
+  },
 });
