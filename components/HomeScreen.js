@@ -4,13 +4,18 @@ import Carousel from 'react-native-snap-carousel';
 import { createStackNavigator } from '@react-navigation/stack';
 import getRestaurants from './RestaurantAPI';
 import Swiper from 'react-native-swiper';
-import { Ionicons } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons' 
+import { getRes } from './Map';
 
 const Stack = createStackNavigator();
 
+
 export default function HomeScreen({ navigation }) {
+  
   const [restaurants, setRestaurants] = useState([])
+
   const [carousel, setCarousel] = useState(null);
+
 
   useEffect(() => {
     fetchRestaurants()
@@ -21,7 +26,8 @@ export default function HomeScreen({ navigation }) {
     setRestaurants(data)
     
   }  
-   
+
+ 
   //Fetch more restaurants
   const setMoreRestaurants = async () => {
     //if user is on the last restaurant of the "page"
@@ -32,6 +38,7 @@ export default function HomeScreen({ navigation }) {
       //Add last to the beginning of the next "page"
       newRestaurants.unshift(last)
       setRestaurants(newRestaurants)
+      getRes();
       carousel.snapToItem(0, false, false)
     } else {
       console.log("Currently on index: " + carousel.currentIndex)
@@ -123,75 +130,26 @@ export default function HomeScreen({ navigation }) {
     )
   }
 
+  
 
-  // Necessary for unified iOS and Android box shadow
-  // Source: https://blog.logrocket.com/applying-box-shadows-in-react-native/
-  const generateBoxShadowStyle = (
-    xOffset,
-    yOffset,
-    shadowColorIos,
-    shadowOpacity,
-    shadowRadius,
-    elevation,
-    shadowColorAndroid,
-  ) => {
-    if (Platform.OS === 'ios') {
-      styles.boxShadow = {
-        shadowColor: shadowColorIos,
-        shadowOffset: { width: xOffset, height: yOffset },
-        shadowOpacity,
-        shadowRadius,
-      };
-    } else if (Platform.OS === 'android') {
-      styles.boxShadow = {
-        elevation,
-        shadowColor: shadowColorAndroid,
-      };
-    }
-  };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff', paddingTop: 50, }}>
-      <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', }}>
-        
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+      <View style={{ flex: 1, justifyContent: 'center', marginVertical: 50 }}>
         <Carousel
           layout={'default'}
           data={restaurants}
           sliderWidth={350}
           itemWidth={350}
-          renderItem={({ item, index }) => { 
-            return (
-              <View style={[styles.card, styles.boxShadow]}>
-                <View>
-                  <ImageBackground
-                    style={styles.image}
-                    imageStyle={styles.imageBackground}
-                    source={{ uri: item.photos._W[0] }}
-                  >
-                  </ImageBackground>
-                </View>
-                <View style={styles.cardContent}> 
-                  <Text style={styles.cardTitle}>{item.name}</Text>
-                  <Text style={styles.cardAddress}>{item.vicinity}</Text>
-                  <Text>Rating: {item.rating}</Text> 
-                  <Text> </Text>
-                  <Button title={item.vicinity}
-                    onPress={() => navigation.navigate('RestaurantLocation', {
-                      info: item
-                    }
-                    )
-                    }
-                  />
-                </View>
-              </View>
-            )
-          }}
-        /> 
-      </View> 
-      
+          renderItem={renderItem}
+          ref={c => { setCarousel(c); }} 
+          onSnapToItem={() => setMoreRestaurants()}
+        />
+      </View>
     </SafeAreaView>
   )
 };
+
 
 const styles = StyleSheet.create({
   container: {
@@ -235,7 +193,3 @@ const styles = StyleSheet.create({
     paddingLeft: 5
   }
 });
-
-
-/* {restaurants != undefined &&
-        <Map restaurants={restaurants}/> }*/

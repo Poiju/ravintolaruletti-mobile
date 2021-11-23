@@ -2,13 +2,15 @@ import getLocation from './Location';
 
 const TYPE = 'restaurant'
 // Google Places API call parameters
-const API_KEY = ""
+const API_KEY = "AIzaSyBACLEeX8UlAUazX0IutzWht6fSW4_0vww"
 // Photo max width
 const PHOTO_WIDTH = '400'
 //Rank by which order
 const RANKBY = 'distance'
 //Next page token
 let nextPageToken = false
+
+export let globalRestaurants = ''; 
 
 export default async function getRestaurants(nextPage = nextPageToken) {
   try {
@@ -27,6 +29,7 @@ export default async function getRestaurants(nextPage = nextPageToken) {
       nextPageToken = result.next_page_token
       // Load photos and filter out restaurants without any
       let restaurants = await getFilteredRestaurantsWithPhotos(result.results)
+      globalRestaurants = restaurants;
       return restaurants
       
     } else {
