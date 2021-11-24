@@ -27,7 +27,6 @@ export default function HomeScreen({ navigation }) {
     
   }  
 
- 
   //Fetch more restaurants
   const setMoreRestaurants = async () => {
     //if user is on the last restaurant of the "page"

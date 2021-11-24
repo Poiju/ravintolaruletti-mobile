@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Platform, Text, View, StyleSheet, Button } from 'react-native';
+import { Platform, Text, View, StyleSheet, Button, RefreshControl } from 'react-native';
 import * as Location from 'expo-location'; 
 import MapView, { Marker } from 'react-native-maps';  
 import getLocation from './Location'; 
@@ -25,7 +25,7 @@ export default function Map( ) {
     //fetchRestaurants()
     getLoc()
     setRestaurants(globalRestaurants);
-  }, [globalRestaurants]);
+  }, []);
 
   const fetchRestaurants = async () => {
     let data = await getRestaurants()
@@ -38,6 +38,10 @@ export default function Map( ) {
   setLocation({...location, latitude: userLocation.latitude,
   longitude: userLocation.longitude,
   });
+}
+
+function refresh() { 
+  setRestaurants(globalRestaurants);
 }
 
 
@@ -67,6 +71,7 @@ export default function Map( ) {
           </Marker>
         ))}
       </MapView>  
+      <Button title='Päivitä ravintolot' onPress={() => refresh()}></Button>
     </View>
   );
 }
