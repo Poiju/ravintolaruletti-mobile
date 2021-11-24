@@ -5,16 +5,10 @@ import MapView, { Marker } from 'react-native-maps';
 import getLocation from './Location'; 
 import getRestaurants from './RestaurantAPI';
 import { Ionicons} from '@expo/vector-icons';    
-import { globalRestaurants } from './RestaurantAPI';
 
-let res = globalRestaurants; 
 
-export function getRes() { 
-  res = globalRestaurants;
-}
-export default function Map( ) {
+export default function Map({navigation}) {
 
-  
   const [restaurants, setRestaurants] = useState([]);
   const [location, setLocation] = useState({
     latitudeDelta:0.0322,
@@ -22,18 +16,23 @@ export default function Map( ) {
   });
 
   useEffect(() => {
-    //fetchRestaurants()
-    getLoc()
-    setRestaurants(globalRestaurants);
-  }, [globalRestaurants]);
+    //Refresh the page on navigation, so the next restaurants can be seen on the map
+    const unsubscribe = navigation.addListener('focus', () => {
+      if (!location.latitude) setLoc()
+      fetchRestaurants()
+      console.log('Refreshed!');
+    });
+    return unsubscribe;
+    
+
+  }, [navigation]);
 
   const fetchRestaurants = async () => {
     let data = await getRestaurants()
     setRestaurants(data);
-
  }
 
- const getLoc = async () => {
+ const setLoc = async () => {
   let userLocation = await getLocation()
   setLocation({...location, latitude: userLocation.latitude,
   longitude: userLocation.longitude,
@@ -43,6 +42,7 @@ export default function Map( ) {
 
   return ( 
     <View style={{height:100, flex:1}}>
+       {location.latitude != undefined && 
       <MapView
         style={{ flex: 1 }}
         region={location}>  
@@ -66,7 +66,8 @@ export default function Map( ) {
             </View>
           </Marker>
         ))}
-      </MapView>  
+      </MapView> 
+      } 
     </View>
   );
 }

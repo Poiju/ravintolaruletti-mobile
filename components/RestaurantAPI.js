@@ -2,34 +2,35 @@ import getLocation from './Location';
 
 const TYPE = 'restaurant'
 // Google Places API call parameters
-const API_KEY = "AIzaSyBACLEeX8UlAUazX0IutzWht6fSW4_0vww"
+const API_KEY = "AIzaSyBOG6Usv1adjzYqlNre1AAxEhFicqQ1X5k"
 // Photo max width
 const PHOTO_WIDTH = '400'
 //Rank by which order
 const RANKBY = 'distance'
-//Next page token
-let nextPageToken = false
+//current/previous and next page token array
+let pageTokens = ['', '']
+//Do we want to fetch current or next page
+let isNextPage = false
 
-export let globalRestaurants = ''; 
 
-export default async function getRestaurants(nextPage = nextPageToken) {
+export default async function getRestaurants() {
   try {
     const loc = await getLocation();
     const api_url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${loc.latitude}%2C${loc.longitude}&rankby=${RANKBY}&type=${TYPE}&key=${API_KEY}`
-    //Fetch with or without nextpagetoken
-    let response = (!nextPage) ? await fetch(api_url) : await fetch(api_url+'&pagetoken=' + nextPage)
-    
+    //Fetch with next or previous pagetoken, if pagetoken parameter is empty it fetches first page always, so no need to check for it
+    let response = (!isNextPage) ? await fetch(api_url+'&pagetoken=' + pageTokens[0]) : await fetch(api_url+'&pagetoken=' + pageTokens[1])
     const result = await response.json()
     
     if (response.ok) {
       console.log('Number of restaurants fetched: ' + result.results.length)
 
 
-      //Set token of next page
-      nextPageToken = result.next_page_token
+      //Set token of current/previous and next page
+      pageTokens[0] = (isNextPage) ? pageTokens[1] : pageTokens[0]
+      pageTokens[1] = result.next_page_token
       // Load photos and filter out restaurants without any
       let restaurants = await getFilteredRestaurantsWithPhotos(result.results)
-      globalRestaurants = restaurants;
+      setNextPage(false)
       return restaurants
       
     } else {
@@ -41,6 +42,9 @@ export default async function getRestaurants(nextPage = nextPageToken) {
 
 }
 
+export const setNextPage = (bool) => {
+  isNextPage = bool
+}
 //console.log(api_url)
 
 const getFilteredRestaurantsWithPhotos = async (data) => {
