@@ -20,7 +20,7 @@ export default function Map({navigation}) {
     const unsubscribe = navigation.addListener('focus', () => {
       if (!location.latitude) setLoc()
       fetchRestaurants()
-      console.log('Refreshed!');
+      console.log('Kartta päivitetty!');
     });
     return unsubscribe;
     

@@ -6,7 +6,6 @@ import getRestaurants from './RestaurantAPI';
 import Swiper from 'react-native-swiper';
 import { Ionicons } from '@expo/vector-icons'  
 import { setNextPage } from './RestaurantAPI';
-import { refreshPage } from './Map';
 
 const Stack = createStackNavigator();
 
