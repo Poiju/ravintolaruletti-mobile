@@ -13,6 +13,14 @@ Tiimi: Risto Lähteenkorva, Maisa Mäntyvaara, Krista Nyberg, Tomi Salo, Tuomas 
 * Mobiilisovellus-repositorio [täällä](https://github.com/Poiju/ravintolaruletti-mobile)
 * Backend-repositorio [täällä](https://github.com/Poiju/ravintolaruletti-backend)
 
+## Käyttäjätarinoita
+* US1: "Tietojen etsijänä haluan pystyä selaamaan sovelluksessa dataa swaippaamalla"
+* US2: "Lounasruokailijana haluan nähdä sovelluksessa Helsinkin ravintoloita ja swaippailla niitä, jotta voisin löytää jonkin kiinnostavan ruokapaikan"
+* US3: "Lounasruokailijana haluan löytää vaivattomasti ja nopeasti ravintolan, joka on lähellä minua"
+* US4: "Trendien seuraajana haluan valita mahdollisimman hyvän näköisen ravintolan, jotta saan siitä hienoja kuvia Instagramiin"
+* ~~US5: "Innokkaana kulinaristina haluan voida tehdä oman käyttäjäprofiilin sovellukseen"~~
+* ~~US6: "Innokkaana kulinaristina haluan myös voida tallentaa hyvältä vaikuttavia ravintoloita talteen"~~
+
 ## Käytettävät teknologiat:
 * React Native front endiin, datan hakuun jne
 * Expon työkalut mobiilin kehitykseen
@@ -26,12 +34,8 @@ Tiimi: Risto Lähteenkorva, Maisa Mäntyvaara, Krista Nyberg, Tomi Salo, Tuomas 
 * Swaippausominaisuus: [react-native-swiper](https://github.com/leecade/react-native-swiper)
 * Ulkoasukomponentteja: [React Native Paper](https://callstack.github.io/react-native-paper/)
 
-## Käyttäjätarinoita
-* US1: "Tietojen etsijänä haluan pystyä selaamaan sovelluksessa dataa swaippaamalla"
-* US2: "Lounasruokailijana haluan nähdä sovelluksessa Helsinkin ravintoloita ja swaippailla niitä, jotta voisin löytää jonkin kiinnostavan ruokapaikan"
-* US3: "Lounasruokailijana haluan löytää vaivattomasti ja nopeasti ravintolan, joka on lähellä minua"
-* ~~US4: "Trendien seuraajana haluan valita mahdollisimman hyvän näköisen ravintolan, jotta saan siitä hienoja kuvia Instagramiin"~~
-* ~~US5: "Innokkaana kulinaristina haluan voida tehdä oman käyttäjäprofiilin sovellukseen"~~
+## Asennus
+(tähän linkki erilliseen asennusdokumentaatioon?)
 
 ## Käyttöliittymäkuvat
 Käyttöliittymän rautalankamalli [täällä](http://wireframepro.mockflow.com/space/M0J2CZJDJmb)
