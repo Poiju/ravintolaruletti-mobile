@@ -20,7 +20,7 @@ export default async function getRestaurants() {
     //Fetch with next or previous pagetoken, if pagetoken parameter is empty it fetches first page always, so no need to check for it
     let response = (!isNextPage) ? await fetch(api_url+'&pagetoken=' + pageTokens[0]) : await fetch(api_url+'&pagetoken=' + pageTokens[1])
     const result = await response.json()
-    
+    console.log(api_url)
     if (response.ok) {
       console.log('Number of restaurants fetched: ' + result.results.length)
 
