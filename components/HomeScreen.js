@@ -4,13 +4,18 @@ import Carousel from 'react-native-snap-carousel';
 import { createStackNavigator } from '@react-navigation/stack';
 import getRestaurants from './RestaurantAPI';
 import Swiper from 'react-native-swiper';
-import { Ionicons } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'  
+import { setNextPage } from './RestaurantAPI';
 
 const Stack = createStackNavigator();
 
+
 export default function HomeScreen({ navigation }) {
+  
   const [restaurants, setRestaurants] = useState([])
+  
   const [carousel, setCarousel] = useState(null);
+
 
   useEffect(() => {
     fetchRestaurants()
@@ -21,17 +26,21 @@ export default function HomeScreen({ navigation }) {
     setRestaurants(data)
     
   }  
-   
-  //Fetch more restaurants
+
+
+  //Fetch/set more restaurants
   const setMoreRestaurants = async () => {
     //if user is on the last restaurant of the "page"
     if (carousel && carousel.currentIndex == restaurants.length-1) {
+      //We will be fetching next page now
+      setNextPage(true)
       //Getting the last restaurant of the previous page
       let last = restaurants[restaurants.length-1]
       let newRestaurants = await getRestaurants()
       //Add last to the beginning of the next "page"
       newRestaurants.unshift(last)
       setRestaurants(newRestaurants)
+      //Send user to the first item to avoid confusion
       carousel.snapToItem(0, false, false)
     } else {
       console.log("Currently on index: " + carousel.currentIndex)
@@ -123,6 +132,7 @@ export default function HomeScreen({ navigation }) {
     )
   }
 
+  
 
 
   return (
@@ -141,6 +151,7 @@ export default function HomeScreen({ navigation }) {
     </SafeAreaView>
   )
 };
+
 
 const styles = StyleSheet.create({
   container: {

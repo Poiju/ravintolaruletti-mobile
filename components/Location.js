@@ -7,12 +7,12 @@ export default async function getLocation() {
       console.error('Permission to access location was denied');
       return;
     }
+
     let location = await Location.getCurrentPositionAsync({});
     let userLocation = {
         latitude: location.coords.latitude,
         longitude: location.coords.longitude}
     
-
     return userLocation
 }
 
