@@ -28,9 +28,10 @@ function Home({ navigation }) {
             else if (route.name === 'Map') {
              iconName = 'map';
             }
+            
             return <Ionicons name={iconName} size={size} color={color} />; //it returns an icon component
           },  
-         
+          headerTitleAlign: 'center'
         })}>
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Profile" component={ProfileScreen} /> 
