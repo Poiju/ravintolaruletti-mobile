@@ -15,10 +15,10 @@ export default async function getRestaurants(nextPage = nextPageToken) {
     const loc = await getLocation();
     const api_url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${loc.latitude}%2C${loc.longitude}&rankby=${RANKBY}&type=${TYPE}&key=${API_KEY}`
     //Fetch with or without nextpagetoken
-    let response = (!nextPage) ? await fetch(api_url) : await fetch(api_url+'&pagetoken=' + nextPage)
-    
+    let response = (!nextPage) ? await fetch(api_url) : await fetch(api_url + '&pagetoken=' + nextPage)
+
     const result = await response.json()
-    
+
     if (response.ok) {
       console.log('Number of restaurants fetched: ' + result.results.length)
 
@@ -28,7 +28,7 @@ export default async function getRestaurants(nextPage = nextPageToken) {
       // Load photos and filter out restaurants without any
       let restaurants = await getFilteredRestaurantsWithPhotos(result.results)
       return restaurants
-      
+
     } else {
       console.log("RESPONSE NOT OK Couldn't load restaurants: " + result.message)
     }
@@ -51,14 +51,14 @@ const getFilteredRestaurantsWithPhotos = async (data) => {
   //Map only used data
   let filterUnused = filteredRestaurants.map((restaurant) => {
     return {
-      location : restaurant.geometry.location,
-      name : restaurant.name,
-      rating : restaurant.rating,
-      vicinity : restaurant.vicinity,
-      photos : restaurant.photos._W
+      location: restaurant.geometry.location,
+      name: restaurant.name,
+      rating: restaurant.rating,
+      vicinity: restaurant.vicinity,
+      photos: restaurant.photos._W
     }
   })
-     
+
   return filterUnused
 
 }
