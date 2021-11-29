@@ -2,7 +2,7 @@ import getLocation from './Location';
 
 const TYPE = 'restaurant'
 // Google Places API call parameters
-const API_KEY = "AIzaSyCEvBSbG8KpKECCxvJZ_R7dAlOKGskUyUI"
+const API_KEY = ""
 // Photo max width
 const PHOTO_WIDTH = '400'
 //Rank by which order
