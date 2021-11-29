@@ -4,16 +4,16 @@ import Carousel from 'react-native-snap-carousel';
 import { createStackNavigator } from '@react-navigation/stack';
 import getRestaurants from './RestaurantAPI';
 import Swiper from 'react-native-swiper';
-import { Ionicons } from '@expo/vector-icons'  
+import { Ionicons } from '@expo/vector-icons'
 import { setNextPage } from './RestaurantAPI';
 
 const Stack = createStackNavigator();
 
 
 export default function HomeScreen({ navigation }) {
-  
+
   const [restaurants, setRestaurants] = useState([])
-  
+
   const [carousel, setCarousel] = useState(null);
 
 
@@ -24,18 +24,18 @@ export default function HomeScreen({ navigation }) {
   const fetchRestaurants = async () => {
     let data = await getRestaurants()
     setRestaurants(data)
-    
-  }  
+
+  }
 
 
   //Fetch/set more restaurants
   const setMoreRestaurants = async () => {
     //if user is on the last restaurant of the "page"
-    if (carousel && carousel.currentIndex == restaurants.length-1) {
+    if (carousel && carousel.currentIndex == restaurants.length - 1) {
       //We will be fetching next page now
       setNextPage(true)
       //Getting the last restaurant of the previous page
-      let last = restaurants[restaurants.length-1]
+      let last = restaurants[restaurants.length - 1]
       let newRestaurants = await getRestaurants()
       //Add last to the beginning of the next "page"
       newRestaurants.unshift(last)
@@ -59,11 +59,11 @@ export default function HomeScreen({ navigation }) {
               <View
                 style={{
                   backgroundColor: 'rgba(0,0,0,.2)',
-                  width: 8,
-                  height: 8,
-                  borderRadius: 4,
+                  width: 10,
+                  height: 10,
+                  borderRadius: 10,
                   borderWidth: 1,
-                  borderColor: '#ededed',
+                  borderColor: 'rgba(255,255,255,.5)',
                   marginLeft: 3,
                   marginRight: 3,
                   marginTop: 3,
@@ -74,12 +74,12 @@ export default function HomeScreen({ navigation }) {
             activeDot={
               <View
                 style={{
-                  backgroundColor: '#007aff',
-                  width: 8,
-                  height: 8,
-                  borderRadius: 4,
+                  backgroundColor: '#658E9C',
+                  width: 10,
+                  height: 10,
+                  borderRadius: 10,
                   borderWidth: 1,
-                  borderColor: '#ededed',
+                  borderColor: 'rgba(255,255,255,.5)',
                   marginLeft: 3,
                   marginRight: 3,
                   marginTop: 3,
@@ -107,23 +107,26 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.cardContent}>
           <View>
             <Text style={styles.cardTitle}>{item.name}</Text>
-            <Text style={styles.cardAddress}>{item.vicinity}</Text>
+            <View style={[styles.cardIconBox, styles.cardAddress]}>
+              <Ionicons name="ios-pin" size={16} color="#4D5382" />
+              <Text style={styles.cardIconText}>{item.vicinity}</Text>
+            </View>
             {
               item.rating &&
-              <View style={styles.cardRating}>
-                <Ionicons name="md-star" size={18} color="#eda800" style={styles.cardRatingIcon} />
-                <Text style={styles.cardRatingText}>Rating: {item.rating}</Text>
+              <View style={[styles.cardIconBox, styles.cardRating]}>
+                <Ionicons name="md-star" size={16} color="#4D5382" />
+                <Text style={styles.cardIconText}>Rating: {item.rating}</Text>
               </View>
             }
             <View style={{ marginBottom: 15 }}></View>
           </View>
           <View>
             <Button
-              style={styles.cardButton}
               title={'Go to map'}
               onPress={() => navigation.navigate('RestaurantLocation', {
                 info: item
               })}
+              color={'#658E9C'}
             />
           </View>
         </View>
@@ -132,11 +135,11 @@ export default function HomeScreen({ navigation }) {
     )
   }
 
-  
+
 
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+    <SafeAreaView style={styles.container}>
       <View style={{ flex: 1, justifyContent: 'center', marginVertical: 50 }}>
         <Carousel
           layout={'default'}
@@ -144,7 +147,7 @@ export default function HomeScreen({ navigation }) {
           sliderWidth={350}
           itemWidth={350}
           renderItem={renderItem}
-          ref={c => { setCarousel(c); }} 
+          ref={c => { setCarousel(c); }}
           onSnapToItem={() => setMoreRestaurants()}
         />
       </View>
@@ -156,9 +159,7 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#ebeef2'
   },
   card: {
     backgroundColor: '#fff',
@@ -176,22 +177,27 @@ const styles = StyleSheet.create({
   },
   cardContent: {
     flex: 1,
-    paddingVertical: 25,
-    paddingHorizontal: 30,
+    paddingTop: 20,
+    paddingBottom: 25,
+    paddingHorizontal: 25,
     backgroundColor: '#fff',
     justifyContent: 'space-between'
   },
   cardTitle: {
     fontSize: 22,
-    marginBottom: 10
+    marginBottom: 15
+  },
+  cardIconBox: {
+    flexDirection: 'row',
+    paddingVertical: 8,
+    borderBottomWidth: 2,
+    borderBottomColor: '#ebeef2',
   },
   cardAddress: {
-    marginBottom: 6
+    borderTopWidth: 2,
+    borderTopColor: '#ebeef2',
   },
-  cardRating: {
-    flexDirection: 'row',
-  },
-  cardRatingText: {
+  cardIconText: {
     paddingLeft: 5
   }
 });

@@ -7,7 +7,7 @@ import * as Location from 'expo-location';
 export default function RestaurantLocation({ route, navigation }) {
 
 
-const { info } = route.params;
+  const { info } = route.params;
 
   const loc = {
     latitude: info.location.lat,
@@ -21,18 +21,18 @@ const { info } = route.params;
     longitude: loc.longitude,
   }
 
-  return ( 
-    <View style={{height:100, flex:1}}>
-    <MapView
-      style={{ flex: 5 }}
-      region={loc}> 
-      <Marker coordinate={{
-       latitude: loc.latitude, 
-       longitude: loc.longitude
-       }}
-       title={info.name}/> 
-    </MapView>
-      <Button title='Takaisin' onPress={() => navigation.navigate('HomeScreen')}></Button>
+  return (
+    <View style={{ height: 100, flex: 1 }}>
+      <MapView
+        style={{ flex: 5 }}
+        region={loc}>
+        <Marker coordinate={{
+          latitude: loc.latitude,
+          longitude: loc.longitude
+        }}
+          title={info.name} />
+      </MapView>
+      <Button title='Go back' onPress={() => navigation.navigate('HomeScreen')} color={'#658E9C'}></Button>
     </View>
   );
 }
