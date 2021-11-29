@@ -7,14 +7,16 @@ import getRestaurants from './RestaurantAPI';
 import { Ionicons} from '@expo/vector-icons';    
 
 
+
 export default function Map({navigation}) {
 
   const [restaurants, setRestaurants] = useState([]);
   const [location, setLocation] = useState({
-    latitudeDelta:0.0322,
-    longitudeDelta:0.0221,
+    latitudeDelta:0.0210,
+    longitudeDelta:0.0180,
   });
 
+  
   useEffect(() => {
     //Refresh the page on navigation, so the next restaurants can be seen on the map
     const unsubscribe = navigation.addListener('focus', () => {
@@ -37,10 +39,6 @@ export default function Map({navigation}) {
   setLocation({...location, latitude: userLocation.latitude,
   longitude: userLocation.longitude,
   });
-}
-
-function refresh() { 
-  setRestaurants(globalRestaurants);
 }
 
 
