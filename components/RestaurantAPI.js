@@ -18,7 +18,7 @@ export default async function getRestaurants() {
     const loc = await getLocation();
     const api_url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${loc.latitude}%2C${loc.longitude}&rankby=${RANKBY}&type=${TYPE}&key=${API_KEY}`
     //Fetch with next or previous pagetoken, if pagetoken parameter is empty it fetches first page always, so no need to check for it
-    let response = (!isNextPage) ? await fetch(api_url+'&pagetoken=' + pageTokens[0]) : await fetch(api_url+'&pagetoken=' + pageTokens[1])
+    let response = (!isNextPage) ? await fetch(api_url + '&pagetoken=' + pageTokens[0]) : await fetch(api_url + '&pagetoken=' + pageTokens[1])
     const result = await response.json()
     console.log(api_url)
     if (response.ok) {
@@ -32,7 +32,7 @@ export default async function getRestaurants() {
       let restaurants = await getFilteredRestaurantsWithPhotos(result.results)
       setNextPage(false)
       return restaurants
-      
+
     } else {
       console.log("RESPONSE NOT OK Couldn't load restaurants: " + result.message)
     }
@@ -58,14 +58,14 @@ const getFilteredRestaurantsWithPhotos = async (data) => {
   //Map only used data
   let filterUnused = filteredRestaurants.map((restaurant) => {
     return {
-      location : restaurant.geometry.location,
-      name : restaurant.name,
-      rating : restaurant.rating,
-      vicinity : restaurant.vicinity,
-      photos : restaurant.photos._W
+      location: restaurant.geometry.location,
+      name: restaurant.name,
+      rating: restaurant.rating,
+      vicinity: restaurant.vicinity,
+      photos: restaurant.photos._W
     }
   })
-     
+
   return filterUnused
 
 }
