@@ -44,6 +44,21 @@ Team: Risto Lähteenkorva, Maisa Mäntyvaara, Krista Nyberg, Tomi Salo, Tuomas V
 
 User interface wireframe [here](http://wireframepro.mockflow.com/space/M0J2CZJDJmb)
 
+## Installation instructions
+
+Install node.js from 	[here](https://nodejs.org/en/download/)  
+Install git from 	[here](https://git-scm.com)  
+Install Expo Go to mobile phone  
+Run in Command prompt:  
+* git clone https://github.com/Poiju/ravintolaruletti-mobile.git  
+* cd ravintolaruletti-mobile  
+* (install api key, [under construction])  
+* npm install  
+* npminstall –g expo-cli  
+* expo start  
+
+Scan QR-code with Expo go mobile app  
+
 ## REST-dokumentation
 
 (link will be here in future)
