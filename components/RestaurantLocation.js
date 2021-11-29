@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button, Alert } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
-
+import { colors } from './colors'
 
 export default function RestaurantLocation({ route, navigation }) {
 
@@ -32,7 +32,7 @@ export default function RestaurantLocation({ route, navigation }) {
         }}
           title={info.name} />
       </MapView>
-      <Button title='Go back' onPress={() => navigation.navigate('HomeScreen')} color={'#658E9C'}></Button>
+      <Button title='Go back' onPress={() => navigation.navigate('HomeScreen')} color={colors.color2}></Button>
     </View>
   );
 }
