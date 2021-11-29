@@ -1,8 +1,9 @@
 import getLocation from './Location';
+import config from '../config';
 
 const TYPE = 'restaurant'
 // Google Places API call parameters
-const API_KEY = ""
+const API_KEY = config.API_KEY;
 // Photo max width
 const PHOTO_WIDTH = '400'
 //Rank by which order
