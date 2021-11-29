@@ -6,6 +6,7 @@ import getRestaurants from './RestaurantAPI';
 import Swiper from 'react-native-swiper';
 import { Ionicons } from '@expo/vector-icons'
 import { setNextPage } from './RestaurantAPI';
+import { colors } from './colors'
 
 const Stack = createStackNavigator();
 
@@ -74,7 +75,7 @@ export default function HomeScreen({ navigation }) {
             activeDot={
               <View
                 style={{
-                  backgroundColor: '#658E9C',
+                  backgroundColor: colors.color2,
                   width: 10,
                   height: 10,
                   borderRadius: 10,
@@ -108,13 +109,13 @@ export default function HomeScreen({ navigation }) {
           <View>
             <Text style={styles.cardTitle}>{item.name}</Text>
             <View style={[styles.cardIconBox, styles.cardAddress]}>
-              <Ionicons name="ios-pin" size={16} color="#4D5382" />
+              <Ionicons name="ios-pin" size={16} color={colors.color1} />
               <Text style={styles.cardIconText}>{item.vicinity}</Text>
             </View>
             {
               item.rating &&
               <View style={[styles.cardIconBox, styles.cardRating]}>
-                <Ionicons name="md-star" size={16} color="#4D5382" />
+                <Ionicons name="md-star" size={16} color={colors.color1} />
                 <Text style={styles.cardIconText}>Rating: {item.rating}</Text>
               </View>
             }
@@ -126,7 +127,7 @@ export default function HomeScreen({ navigation }) {
               onPress={() => navigation.navigate('RestaurantLocation', {
                 info: item
               })}
-              color={'#658E9C'}
+              color={colors.color2}
             />
           </View>
         </View>
@@ -159,7 +160,7 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ebeef2'
+    backgroundColor: colors.color3
   },
   card: {
     backgroundColor: '#fff',
@@ -191,11 +192,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 8,
     borderBottomWidth: 2,
-    borderBottomColor: '#ebeef2',
+    borderBottomColor: colors.color3,
   },
   cardAddress: {
     borderTopWidth: 2,
-    borderTopColor: '#ebeef2',
+    borderTopColor: colors.color3,
   },
   cardIconText: {
     paddingLeft: 5

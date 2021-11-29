@@ -7,6 +7,7 @@ import HomeScreen from './components/HomeScreen';
 import Map from './components/Map';
 import { Ionicons } from '@expo/vector-icons';
 import RestaurantLocation from './components/RestaurantLocation';
+import { colors } from './components/colors'
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -27,7 +28,7 @@ function Home({ navigation }) {
         },
         headerTitleAlign: 'center',
         headerStyle: {
-          backgroundColor: '#4D5382'
+          backgroundColor: colors.color1
         },
         headerTitleStyle: {
           color: '#fff'
@@ -39,7 +40,7 @@ function Home({ navigation }) {
         },
         tabBarItemStyle: { paddingVertical: 3 },
         tabBarActiveTintColor: '#fff',
-        tabBarActiveBackgroundColor: '#4D5382',
+        tabBarActiveBackgroundColor: colors.color1,
         tabBarInactiveTintColor: '#999',
         tabBarInactiveBackgroundColor: '#fff'
       })}
