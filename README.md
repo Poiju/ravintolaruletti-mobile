@@ -22,8 +22,6 @@ Team: Risto Lähteenkorva, Maisa Mäntyvaara, Krista Nyberg, Tomi Salo, Tuomas V
 * US2: "As a busy lunch customer, I want to see nearby restaurants on the app and swipe them so I can find some interesting places to eat."
 * US3: "As a busy lunch customer, I want to find a restaurant near me effortlessly and quickly."
 * US4: "As a follower of trends, I want to choose the best looking restaurant to get great pictures on Instagram."
-* _(US5: "As a foodie, I want to be able to make my own user profile for the app."
-* US6: "As a foodie, I also want to be able to bookmark my favourite restaurants.")_ Move these two into issues/further development ideas!
 
 ## Technologies & libraries:
 
@@ -53,22 +51,42 @@ Team: Risto Lähteenkorva, Maisa Mäntyvaara, Krista Nyberg, Tomi Salo, Tuomas V
 - [ ]
 - [ ] features & ideas to build upon! See ["about issue task lists"](https://docs.github.com/en/issues/tracking-your-work-with-issues/about-task-lists)
 
+### Further development:
+- [ ] US5: "As a foodie, I want to be able to make my own user profile for the app."
+  * Finish backend
+  * Join it to frontend 
+- [ ] US6: "As a foodie, I also want to be able to bookmark my favourite restaurants."
+  * Add functionality to backend 
+
+
 ## User interface pictures
 
 User interface wireframe [here](http://wireframepro.mockflow.com/space/M0J2CZJDJmb)
-+ **would we need actual screenshots here?**
+
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/9GsrT8C/kuva1.jpg" alt="kuva1" border="0" width="296" height="520" />&nbsp;</a>
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/NjdNbgL/kuva2.jpg" alt="kuva1" border="0" width="296" height="520" />&nbsp;</a>
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/6D9FG3S/kuva3.jpg" alt="kuva1" border="0" width="296" height="520" /></a>
 
 ## Installation instructions for development
 
 1. [Install node.js](https://nodejs.org/en/download/)  
 2. [Install git](https://git-scm.com)  
 3. [Install Expo Go](https://expo.dev/client) on your mobile device
-4. Run the following lines in your CLI, or the built-in terminal of your code editor:  **(reconstruct this part with markdown code blocks for clarity?)**
-* git clone https://github.com/Poiju/ravintolaruletti-mobile.git  
-* cd ravintolaruletti-mobile  
-* (install api key[under construction])  
-* npm install  
-* npm install –g expo-cli  
-* expo start  
+4. Run the following lines in your CLI, or the built-in terminal of your code editor:  
+
+```
+git clone https://github.com/Poiju/ravintolaruletti-mobile.git  
+
+cd ravintolaruletti-mobile  
+
+(install api key[under construction])  
+
+npm install  
+
+npm install –g expo-cli  
+
+expo start  
+```
+
 
 A browser instance with a QR code will launch on your PC. Scan the QR code with Expo Go to view the app on your phone. In order for things to run as smoothly as possible, make sure your phone and your PC are on the same local network!
