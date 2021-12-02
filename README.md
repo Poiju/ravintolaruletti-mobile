@@ -30,7 +30,7 @@ Team: Risto Lähteenkorva, Maisa Mäntyvaara, Krista Nyberg, Tomi Salo, Tuomas V
 * JavaScript framework for mobile app development: [React Native](https://reactnative.dev/)
 * Framework & platform for universal React apps: [Expo](https://expo.dev/)
 * [Google Places API](https://developers.google.com/maps/documentation/places/web-service/overview) (free trial used for initial production)
-* ~* Python / Django for backend something something~
+* ~* Python / Django for backend something something, remove?~
 * User location: [expo-location](https://docs.expo.dev/versions/latest/sdk/location/)
 * User interface navigation: [React Navigation](https://reactnavigation.org/)
 * Map component: [react-native-maps] (https://www.npmjs.com/package/react-native-maps)
@@ -38,19 +38,28 @@ Team: Risto Lähteenkorva, Maisa Mäntyvaara, Krista Nyberg, Tomi Salo, Tuomas V
 * Swiping feature: [react-native-swiper](https://github.com/leecade/react-native-swiper)
 * Some visual user interface components from: [React Native Paper](https://callstack.github.io/react-native-paper/)
 
+## Key functions
+
+| Function | Component | Description |
+| --- | --- | --- |
+| `function1` | RestaurantAPI.js | What it does |
+| `function2` | RestaurantAPI.js | What it does |
+| `function3` | RestaurantAPI.js | What it does |
+
 ## User interface pictures
 
 User interface wireframe [here](http://wireframepro.mockflow.com/space/M0J2CZJDJmb)
++ **would we need actual screenshots here?**
 
 ## Installation instructions for development
 
 1. [Install node.js](https://nodejs.org/en/download/)  
 2. [Install git](https://git-scm.com)  
 3. [Install Expo Go](https://expo.dev/client) on your mobile device
-4. Run the following lines in your CLI, or the built-in terminal of your code editor:  
+4. Run the following lines in your CLI, or the built-in terminal of your code editor:  **(reconstruct this part with markdown code blocks for clarity?)**
 * git clone https://github.com/Poiju/ravintolaruletti-mobile.git  
 * cd ravintolaruletti-mobile  
-* (install api key, libraries [under construction])  
+* (install api key[under construction])  
 * npm install  
 * npm install –g expo-cli  
 * expo start  
