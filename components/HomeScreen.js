@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, Button, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, Button, ImageBackground, StatusBar } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import { createStackNavigator } from '@react-navigation/stack';
 import getRestaurants from './RestaurantAPI';
@@ -136,11 +136,9 @@ export default function HomeScreen({ navigation }) {
     )
   }
 
-
-
-
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor={colors.color1} />
       <View style={{ flex: 1, justifyContent: 'center', marginVertical: 50 }}>
         <Carousel
           layout={'default'}
@@ -155,7 +153,6 @@ export default function HomeScreen({ navigation }) {
     </SafeAreaView>
   )
 };
-
 
 const styles = StyleSheet.create({
   container: {
@@ -192,11 +189,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 8,
     borderBottomWidth: 2,
-    borderBottomColor: colors.color3,
+    borderBottomColor: '#f1f1f1',
   },
   cardAddress: {
     borderTopWidth: 2,
-    borderTopColor: colors.color3,
+    borderTopColor: '#f1f1f1',
   },
   cardIconText: {
     paddingLeft: 5

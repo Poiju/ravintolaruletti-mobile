@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Pressable, Button, StyleSheet } from 'react-native'
+import { View, Pressable, Button, StyleSheet, StatusBar } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';

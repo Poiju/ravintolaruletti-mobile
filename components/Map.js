@@ -5,7 +5,7 @@ import MapView, { Marker } from 'react-native-maps';
 import getLocation from './Location';
 import getRestaurants from './RestaurantAPI';
 import { Ionicons } from '@expo/vector-icons';
-
+import { colors } from './colors'
 
 export default function Map({ navigation }) {
 
@@ -15,7 +15,7 @@ export default function Map({ navigation }) {
     longitudeDelta: 0.0221,
   });
 
-  
+
   useEffect(() => {
     //Refresh the page on navigation, so the next restaurants can be seen on the map
     const unsubscribe = navigation.addListener('focus', () => {
@@ -54,7 +54,7 @@ export default function Map({ navigation }) {
           }}
             title='You are here'>
             <View>
-              <Ionicons name={'happy'} size={30} color="#4D5382" />
+              <Ionicons name={'happy'} size={30} color={colors.color2} />
             </View>
           </Marker>
           {restaurants.map((restaurant, index) => (
@@ -66,7 +66,7 @@ export default function Map({ navigation }) {
               }}
               title={restaurant.name}>
               <View >
-                <Ionicons name={'restaurant'} size={20} color="#4D5382" />
+                <Ionicons name={'restaurant'} size={20} color={colors.color2} />
               </View>
             </Marker>
           ))}
