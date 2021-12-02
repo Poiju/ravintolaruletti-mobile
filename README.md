@@ -22,8 +22,8 @@ Team: Risto Lähteenkorva, Maisa Mäntyvaara, Krista Nyberg, Tomi Salo, Tuomas V
 * US2: "As a busy lunch customer, I want to see nearby restaurants on the app and swipe them so I can find some interesting places to eat."
 * US3: "As a busy lunch customer, I want to find a restaurant near me effortlessly and quickly."
 * US4: "As a follower of trends, I want to choose the best looking restaurant to get great pictures on Instagram."
-* (US5: "As a foodie, I want to be able to make my own user profile for the app."
-* US6: "As a foodie, I also want to be able to bookmark my favourite restaurants.") Move these two into issues/further development ideas!
+* _(US5: "As a foodie, I want to be able to make my own user profile for the app."
+* US6: "As a foodie, I also want to be able to bookmark my favourite restaurants.")_ Move these two into issues/further development ideas!
 
 ## Technologies & libraries:
 
@@ -33,10 +33,10 @@ Team: Risto Lähteenkorva, Maisa Mäntyvaara, Krista Nyberg, Tomi Salo, Tuomas V
 * ~* Python / Django for backend something something, remove?~
 * User location: [expo-location](https://docs.expo.dev/versions/latest/sdk/location/)
 * User interface navigation: [React Navigation](https://reactnavigation.org/)
-* Map component: [react-native-maps] (https://www.npmjs.com/package/react-native-maps)
+* Map component: [react-native-maps](https://www.npmjs.com/package/react-native-maps)
 * User interface "cards": [react-native-snap-carousel](https://www.npmjs.com/package/react-native-snap-carousel)
 * Swiping feature: [react-native-swiper](https://github.com/leecade/react-native-swiper)
-* Some visual user interface components from: [React Native Paper](https://callstack.github.io/react-native-paper/)
+* Some visual user interface components: [React Native Paper](https://callstack.github.io/react-native-paper/)
 
 ## Key functions
 
@@ -45,6 +45,13 @@ Team: Risto Lähteenkorva, Maisa Mäntyvaara, Krista Nyberg, Tomi Salo, Tuomas V
 | `function1` | RestaurantAPI.js | What it does |
 | `function2` | RestaurantAPI.js | What it does |
 | `function3` | RestaurantAPI.js | What it does |
+
+## Roadmap & further development
+- [x] a thing we did
+- [x] another thing we did
+- [ ]
+- [ ]
+- [ ] features & ideas to build upon! See ["about issue task lists"](https://docs.github.com/en/issues/tracking-your-work-with-issues/about-task-lists)
 
 ## User interface pictures
 
