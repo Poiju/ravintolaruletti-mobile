@@ -62,11 +62,12 @@ Team: Risto Lähteenkorva, Maisa Mäntyvaara, Krista Nyberg, Tomi Salo, Tuomas V
 ## User interface pictures
 
 User interface wireframe [here](http://wireframepro.mockflow.com/space/M0J2CZJDJmb)
-
-<a href="https://imgbb.com/"><img src="https://i.ibb.co/9GsrT8C/kuva1.jpg" alt="kuva1" border="0" width="296" height="520" />&nbsp;</a>
-<a href="https://imgbb.com/"><img src="https://i.ibb.co/NjdNbgL/kuva2.jpg" alt="kuva1" border="0" width="296" height="520" />&nbsp;</a>
-<a href="https://imgbb.com/"><img src="https://i.ibb.co/6D9FG3S/kuva3.jpg" alt="kuva1" border="0" width="296" height="520" /></a>
-
+<p align="center">
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/9GsrT8C/kuva1.jpg" alt="kuva1" border="0" width="30%" />&nbsp;</a>
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/NjdNbgL/kuva2.jpg" alt="kuva1" border="0" width="30%" />&nbsp;</a>
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/6D9FG3S/kuva3.jpg" alt="kuva1" border="0" width="30%" /></a>
+</p>
+ 
 ## Installation instructions for development
 
 1. [Install node.js](https://nodejs.org/en/download/)  
