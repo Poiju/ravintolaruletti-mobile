@@ -1,7 +1,7 @@
 <h1 align="center">Ravintolaruletti<p align="center"> <a href="https://github.com/Poiju/ravintolaruletti-backend" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/django/django-original.svg" alt="django" width="40" height="40"/> </a> <a href="https://github.com/Poiju" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/github/github-icon.svg" alt="github" width="40" height="40"/> </a> <a href="https://ruletti.herokuapp.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/heroku/heroku-icon.svg" alt="heroku" width="40" height="40"/> </a> <a href="https://postman.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" alt="postman" width="40" height="40"/> </a> <a href="https://github.com/Poiju/ravintolaruletti-mobile" target="_blank" rel="noreferrer"> <img src="https://reactnative.dev/img/header_logo.svg" alt="reactnative" width="40" height="40"/> </a> </p> </h1>
 
 
-<p>Team: Risto Lähteenkorva, Maisa Mäntyvaara, Krista Nyberg, Tomi Salo, Tuomas Valkamo</p>
+Team: [Risto Lähteenkorva](https://www.linkedin.com/in/r-lahteenkorva) , Maisa Mäntyvaara, [Krista Nyberg](https://www.linkedin.com/in/krista-nyberg-5a7721176/), Tomi Salo, [Tuomas Valkamo](https://www.linkedin.com/in/tuomasvalkamo/)
 
 #
 <!-- TABLE OF CONTENTS -->
@@ -65,9 +65,12 @@ User interface wireframe [here](http://wireframepro.mockflow.com/space/M0J2CZJDJ
 
 | Function | Component | Description |
 | --- | --- | --- |
-| `function1` | RestaurantAPI.js | What it does |
-| `function2` | RestaurantAPI.js | What it does |
-| `function3` | RestaurantAPI.js | What it does |
+| `Home Screen` | HomeScreen.js | Draws home screen with swipeable carousel of fetched restaurants |
+| `Location` | Location.js | Resolves users current location |
+| `Map` | Map.js | Adds restaurant markers and user position to map |
+| `Restaurants` | RestaurantAPI.js | Fetches resturants nearby users current location |
+| `Restaurant location` | RestaurantLocation.js | Constructs restaurant markers |
+
 
 ## Roadmap and further development
 - [x] a thing we did
