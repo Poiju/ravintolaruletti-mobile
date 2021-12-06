@@ -1,4 +1,4 @@
-<h1 align="center">Ravintolaruletti<p align="center"> <a href="https://github.com/Poiju/ravintolaruletti-backend" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/django/django-original.svg" alt="django" width="40" height="40"/> </a> <a href="https://github.com/Poiju" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/github/github-icon.svg" alt="github" width="40" height="40"/> </a> <a href="https://ruletti.herokuapp.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/heroku/heroku-icon.svg" alt="heroku" width="40" height="40"/> </a> <a href="https://postman.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" alt="postman" width="40" height="40"/> </a> <a href="https://github.com/Poiju/ravintolaruletti-mobile" target="_blank" rel="noreferrer"> <img src="https://reactnative.dev/img/header_logo.svg" alt="reactnative" width="40" height="40"/> </a> </p> </h1>
+<h1 align="center">Ravintolaruletti<p align="center"> <a href="https://github.com/Poiju" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/github/github-icon.svg" alt="github" width="40" height="40"/> </a> <a href="https://ruletti.herokuapp.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/heroku/heroku-icon.svg" alt="heroku" width="40" height="40"/> </a> <a href="https://postman.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" alt="postman" width="40" height="40"/> </a> <a href="https://github.com/Poiju/ravintolaruletti-mobile" target="_blank" rel="noreferrer"> <img src="https://reactnative.dev/img/header_logo.svg" alt="reactnative" width="40" height="40"/> </a> </p> </h1>
 
 
 Team: [Risto Lähteenkorva](https://www.linkedin.com/in/r-lahteenkorva) , Maisa Mäntyvaara, [Krista Nyberg](https://www.linkedin.com/in/krista-nyberg-5a7721176/), Tomi Salo, [Tuomas Valkamo](https://www.linkedin.com/in/tuomasvalkamo/)
@@ -9,11 +9,11 @@ Team: [Risto Lähteenkorva](https://www.linkedin.com/in/r-lahteenkorva) , Maisa 
   <summary>Table of Contents</summary>
   <ol>
     <li><a href="#project-in-a-nutshell">Project in a nutshell</a></li>
-    <li><a href="#ravintolaruletti">Ravintolaruletti</a></li>
-    <li><a href="#user-stories">User stories</a></li>
+    <li><a href="#ravintolaruletti">Ravintolaruletti (Restaurant Roulette)</a></li>
+    <li><a href="#user-stories">User interface & functionality</a></li>
     <li><a href="#technologies-and-libraries">Technologies and libraries</a></li>
-    <li><a href="#roadmap-and-further-development">Roadmap and further development</a></li>
     <li><a href="#key-functions">Key functions</a></li>
+    <li><a href="#process-and-further-development">Process and further development</a></li>
     <li><a href="#installation-instructions-for-development">Installation instructions for development</a></li>
     <li><a href="#license">License</a></li>
   </ol>
@@ -21,17 +21,24 @@ Team: [Risto Lähteenkorva](https://www.linkedin.com/in/r-lahteenkorva) , Maisa 
 
 ## Project in a nutshell
 
-* Project assignment for Ohjelmistoprojekti II (Software Project II) class, Business Information Technology degree programme at Haaga-Helia University of Applied Sciences
-* Assignment was to design and develop a software solution of the team's choice that uses open data
-* Utilizing agile methods and version control was in important role as part of team work
+* Project assignment for Ohjelmistoprojekti II (Software Project II) class, Business Information Technology degree programme at Haaga-Helia University of Applied Sciences, in autumn of 2021
+* The assignment was to design and develop a software solution of the team's choice that uses open data
+* In addition to software development, we were also to focus on utilising agile methods and version control in our teamwork
+* The project was carried out remotely due to the COVID-19 pandemic situation
 
-## Ravintolaruletti
+## Ravintolaruletti (Restaurant Roulette)
 
-* A mobile app that helps the user find nearby restaurants quickly and examine results by swiping on the screen
+* Concept: A mobile app that helps the user find nearby restaurants quickly and examine results by swiping on the screen
 * Restaurant information and images are retrieved from the Google Places API
-* Mobile app repository [here](https://github.com/Poiju/ravintolaruletti-mobile)
-* ~~Backend repository [here](https://github.com/Poiju/ravintolaruletti-backend)~~
+* App repository [here](https://github.com/Poiju/ravintolaruletti-mobile) on GitHub
 
+## User interface & functionality
+
+This base functionality version of our app consists of these 3 main views (pictured below on iOS, from left to right):
+
+1. **Nearby Restaurants tab (aka Restaurant Card view):** Nearby restaurants come up as swipable cards. The cards can be modified to include all sorts of restaurant data pulled from the API -- our version has the name, street address, and Google rating, as well as all the photos associated with the restaurant on Google Maps. The individual photos within one card can be browsed by swiping up and down on the photo, as indicated by the horizontal dots menu. By default, we have filtered out restaurants with no photos. 
+2. **Map tab:** Shows the location of the user as a marker on the map, surrounded by their nearest restaurants. Clicking on a restaurant marker brings up the name of the restaurant (can be modified to include more information). 
+3. **Chosen restaurant on map:** Shows the exact location of the chosen restaurant on the map. This view is brought up when the user clicks on "Go to map" on the Restaurant Card. The "Go back" button will take the user back to the respective Restaurant Card.
 
 <p align="center">
 <a href="https://imgbb.com/"><img src="https://i.ibb.co/9GsrT8C/kuva1.jpg" alt="kuva1" border="0" width="30%" />&nbsp;</a>
@@ -39,45 +46,78 @@ Team: [Risto Lähteenkorva](https://www.linkedin.com/in/r-lahteenkorva) , Maisa 
 <a href="https://imgbb.com/"><img src="https://i.ibb.co/6D9FG3S/kuva3.jpg" alt="kuva1" border="0" width="30%" /></a>
 </p>
 
-User interface wireframe [here](http://wireframepro.mockflow.com/space/M0J2CZJDJmb)
-
-## User stories
-
-* US1: "As an information seeker, I want to be able to browse restaurants by swiping."
-* US2: "As a busy lunch customer, I want to see nearby restaurants on the app and swipe them so I can find some interesting places to eat."
-* US3: "As a busy lunch customer, I want to find a restaurant near me effortlessly and quickly."
-* US4: "As a follower of trends, I want to choose the best looking restaurant to get great pictures on Instagram."
+The early wireframe model used as the starting point for UI design can be found on Mockflow [here](http://wireframepro.mockflow.com/space/M0J2CZJDJmb)
 
 ## Technologies and libraries
 
-* JavaScript framework for mobile app development: [React Native](https://reactnative.dev/)
-* Framework & platform for universal React apps: [Expo](https://expo.dev/)
-* [Google Places API](https://developers.google.com/maps/documentation/places/web-service/overview) (free trial used for initial production)
-* ~* Python / Django for backend something something, remove?~
+* [React Native](https://reactnative.dev/), JavaScript framework for mobile app development
+* [Expo](https://expo.dev/), framework & platform for universal React apps
+* [Google Places API](https://developers.google.com/maps/documentation/places/web-service/overview) for the restaurant data (free trial used for initial production)
+* [react-native-dotenv](https://www.npmjs.com/package/react-native-dotenv) for hiding the personal API keys on remote
 * User location: [expo-location](https://docs.expo.dev/versions/latest/sdk/location/)
 * User interface navigation: [React Navigation](https://reactnavigation.org/)
 * Map component: [react-native-maps](https://www.npmjs.com/package/react-native-maps)
-* User interface "cards": [react-native-snap-carousel](https://www.npmjs.com/package/react-native-snap-carousel)
+* Card view for Nearby Restaurants tab: [react-native-snap-carousel](https://www.npmjs.com/package/react-native-snap-carousel)
 * Swiping feature: [react-native-swiper](https://github.com/leecade/react-native-swiper)
 * Some visual user interface components: [React Native Paper](https://callstack.github.io/react-native-paper/)
 
 ## Key functions
 
-| Function | Component | Description |
+| Function name | Component | Description |
 | --- | --- | --- |
-| `Home Screen` | HomeScreen.js | Draws home screen with swipeable carousel of fetched restaurants |
-| `Location` | Location.js | Resolves users current location |
-| `Map` | Map.js | Adds restaurant markers and user position to map |
-| `Restaurants` | RestaurantAPI.js | Fetches resturants nearby users current location |
-| `Restaurant location` | RestaurantLocation.js | Constructs restaurant markers |
+| `HomeScreen` | HomeScreen.js | The main component function that renders the Nearby Restaurant view with the swipeable carousel of fetched restaurants |
+| `setMoreRestaurants` | HomeScreen.js | Fetches more restaurants after the very nearest ones have been swiped through  |
+| `getLocation` | Location.js | Resolves user's current location after asking for permission to use device location |
+| `Map` | Map.js | The main component function for adding restaurant and user location markers on the map. Android uses Google Maps, iOS uses Apple Maps as the map component |
+| `Restaurants` | RestaurantAPI.js | The main component function that fetches nearby restaurants from the API based on user's current location. This is where you specify which parametres you want to call, as well as set your Google API key (required for making the calls) |
+| `getFilteredRestaurantsWithPhotos` | RestaurantAPI.js | As one might guess... filters out any fetched restaurants that don't have photos |
+| `loadPhotos` | RestaurantAPI.js | Adds a call to Place Details for additional restaurant photos, as the default Google Places API only returns one photo on fetch |
+| `RestaurantLocation` | RestaurantLocation.js | The main component function for constructing restaurant markers |
 
+## Process and further development
 
-## Roadmap and further development
-- [x] a thing we did
-- [x] another thing we did
-- [ ]
-- [ ]
-- [ ] features & ideas to build upon! See ["about issue task lists"](https://docs.github.com/en/issues/tracking-your-work-with-issues/about-task-lists)
+As often happens, we had to drop and modify features and change directions during the course of the project. The most significant milestones and implemented changes are reported here in this section of the documentation. Since the final product we ended up with is rather bare bones and front end focused, we have also included ideas and features for further development of the app.
+
+### User stories
+By the end of the project run, we managed to fulfill the following user stories:
+
+* **User Story 1:** "As an information seeker, I want to be able to browse data by swiping"
+* **User Story 2**: "As a busy lunch customer, I want to see restaurants on the app so I can choose a place to eat at."
+* **User Story 3**: "As a busy lunch customer, I want to find a well rated restaurant near me effortlessly and quickly."
+* **User Story 4**: "As a follower of trends, I want to choose the best looking restaurant to get great pictures on Instagram."
+
+### Development roadmap
+- [x] brainstormed for product ideas and decided on the final concept
+- [x] set up GitHub and project board on KanbanFlow
+- [x] started requirement analysis
+- [x] sprint 1
+  * getting familiar with the selected technologies
+  * initialised documentation
+  * initialised Django backend
+  * designed UI structure
+  * experimenting with Helsinki Open API data
+  * first experimentations with navigation, map, card & swiping features
+- [x] sprint 2
+  * decided to switch from Helsinki Open API to Google Places API for access to restaurant data outside of Helsinki
+  * filtered restaurant data, decided on parametres to be used
+  * figured out and worked in: user location, restaurant location in relation to user
+  * got restaurant data & photos showing on cards
+  * reworked user stories due to changed requirements
+  * worked on user profile feature on backend
+- [x] sprint 3
+  * working in asynchronicity
+  * added the function to fetch for more restaurants after the initial ones are swiped through
+  * decided on multiple photos per restaurant card feature
+  * incorporated Place Details for additional photos
+  * implemented login & signup pages...
+  * ...and then decided to reduce project scope by dropping backend features altogether as time & resources were running out 
+- [x] sprint 4
+  * cleaning up the code
+  * UI styling
+  * finalising the documentation
+
+**Further development ideas here!**
+See ["about issue task lists"](https://docs.github.com/en/issues/tracking-your-work-with-issues/about-task-lists)
 - [ ] US5: "As a foodie, I want to be able to make my own user profile for the app."
   * Finish backend
   * Join it to frontend 
@@ -90,14 +130,12 @@ User interface wireframe [here](http://wireframepro.mockflow.com/space/M0J2CZJDJ
 1. [Install node.js](https://nodejs.org/en/download/)  
 2. [Install git](https://git-scm.com)  
 3. [Install Expo Go](https://expo.dev/client) on your mobile device
-4. Run the following lines in your CLI, or the built-in terminal of your code editor:  
+4. To install the app with all its associated libraries and dependencies, run the following lines in your CLI or the built-in terminal of your code editor:  
 
 ```
 git clone https://github.com/Poiju/ravintolaruletti-mobile.git  
 
 cd ravintolaruletti-mobile  
-
-(install api key[under construction])  
 
 npm install  
 
@@ -107,6 +145,6 @@ expo start
 ```
 
 
-A browser instance with a QR code will launch on your PC. Scan the QR code with Expo Go to view the app on your phone. In order for things to run as smoothly as possible, make sure your phone and your PC are on the same local network!
+After completing these steps, a browser instance with a QR code will launch on your PC. Scan the QR code with Expo Go to view a local instance of the app on your phone. In order for things to run as smoothly as possible, make sure your phone and your PC are on the same local network! **Please also note that you need to sign up for a free trial on the Google Cloud Platform to access your personal API key. Otherwise the restaurant data will not show up on your app instance.** This key is added to the code in the RestaurantAPI.js component.
 
 ## License
