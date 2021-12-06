@@ -9,11 +9,16 @@ Team: [Risto Lähteenkorva](https://www.linkedin.com/in/r-lahteenkorva) , Maisa 
   <summary>Table of Contents</summary>
   <ol>
     <li><a href="#project-in-a-nutshell">Project in a nutshell</a></li>
-    <li><a href="#ravintolaruletti">Ravintolaruletti (Restaurant Roulette)</a></li>
-    <li><a href="#user-stories">User interface & functionality</a></li>
-    <li><a href="#technologies-and-libraries">Technologies and libraries</a></li>
+    <li><a href="#ravintolaruletti-restaurant-roulette">Ravintolaruletti (Restaurant Roulette)</a></li>
+    <li><a href="#user-interface--functionality">User interface & functionality</a></li>
+    <li><a href="#technologies--libraries">Technologies and libraries</a></li>
     <li><a href="#key-functions">Key functions</a></li>
-    <li><a href="#process-and-further-development">Process and further development</a></li>
+    <li><a href="#process--further-development">Process & further development</a></li>
+        <ul>
+          <li><a href="#user-stories">User stories</a></li>
+          <li><a href="#roadmap">Roadmap</a></li>
+          <li><a href="#ideas-for-further-development">Ideas for further development</a></li>
+        </ul>
     <li><a href="#installation-instructions-for-development">Installation instructions for development</a></li>
     <li><a href="#license">License</a></li>
   </ol>
@@ -48,7 +53,7 @@ This base functionality version of our app consists of these 3 main views (pictu
 
 The early wireframe model used as the starting point for UI design can be found on Mockflow [here](http://wireframepro.mockflow.com/space/M0J2CZJDJmb)
 
-## Technologies and libraries
+## Technologies & libraries
 
 * [React Native](https://reactnative.dev/), JavaScript framework for mobile app development
 * [Expo](https://expo.dev/), framework & platform for universal React apps
@@ -74,7 +79,7 @@ The early wireframe model used as the starting point for UI design can be found 
 | `loadPhotos` | RestaurantAPI.js | Adds a call to Place Details for additional restaurant photos, as the default Google Places API only returns one photo on fetch |
 | `RestaurantLocation` | RestaurantLocation.js | The main component function for constructing restaurant markers |
 
-## Process and further development
+## Process & further development
 
 As often happens, we had to drop and modify features and change directions during the course of the project. The most significant milestones and implemented changes are reported here in this section of the documentation. Since the final product we ended up with is rather bare bones and front end focused, we have also included ideas and features for further development of the app.
 
@@ -86,12 +91,12 @@ By the end of the project run, we managed to fulfill the following user stories:
 * **User Story 3**: "As a busy lunch customer, I want to find a well rated restaurant near me effortlessly and quickly."
 * **User Story 4**: "As a follower of trends, I want to choose the best looking restaurant to get great pictures on Instagram."
 
-### Development roadmap
+### Roadmap
 - [x] brainstormed for product ideas and decided on the final concept
 - [x] set up GitHub and project board on KanbanFlow
 - [x] started requirement analysis
 - [x] sprint 1
-  * getting familiar with the selected technologies
+  * getting familiar with the chosen technologies
   * initialised documentation
   * initialised Django backend
   * designed UI structure
@@ -116,14 +121,12 @@ By the end of the project run, we managed to fulfill the following user stories:
   * UI styling
   * finalising the documentation
 
-**Further development ideas here!**
-See ["about issue task lists"](https://docs.github.com/en/issues/tracking-your-work-with-issues/about-task-lists)
-- [ ] US5: "As a foodie, I want to be able to make my own user profile for the app."
-  * Finish backend
-  * Join it to frontend 
-- [ ] US6: "As a foodie, I also want to be able to bookmark my favourite restaurants."
-  * Add functionality to backend 
+### Ideas for further development
+Our original project backlog included two additional user stories, which ended up not making it into the finalised product as they include backend functionalities. 
+* **User Story 5:** "As a foodie, I want to be able to make my own user profile on the app."
+* **User Story 6:** "As a foodie, I want to be able to save interesting restaurants in my favourites."
 
+We have documented the features associated with these user stories and some other ideas [here](https://github.com/Poiju/ravintolaruletti-mobile/issues) as open issues for the sake of getting to mess with GitHub issues.
  
 ## Installation instructions for development
 
@@ -132,19 +135,20 @@ See ["about issue task lists"](https://docs.github.com/en/issues/tracking-your-w
 3. [Install Expo Go](https://expo.dev/client) on your mobile device
 4. To install the app with all its associated libraries and dependencies, run the following lines in your CLI or the built-in terminal of your code editor:  
 
-```
-git clone https://github.com/Poiju/ravintolaruletti-mobile.git  
+`git clone https://github.com/Poiju/ravintolaruletti-mobile.git`
 
-cd ravintolaruletti-mobile  
+`cd ravintolaruletti-mobile`
 
-npm install  
+`npm install` 
 
-npm install –g expo-cli  
+`npm install –g expo-cli`  
 
-expo start  
-```
+`expo start`
 
 
-After completing these steps, a browser instance with a QR code will launch on your PC. Scan the QR code with Expo Go to view a local instance of the app on your phone. In order for things to run as smoothly as possible, make sure your phone and your PC are on the same local network! **Please also note that you need to sign up for a free trial on the Google Cloud Platform to access your personal API key. Otherwise the restaurant data will not show up on your app instance.** This key is added to the code in the RestaurantAPI.js component.
+After completing these steps, a browser instance with a QR code will launch on your PC. Scan the QR code with Expo Go to view a local instance of the app on your phone. In order for things to run as smoothly as possible, make sure your phone and your PC are on the same local network! **Please also note that you need to sign up for a free trial on the Google Cloud Platform to access your personal API key. Otherwise the restaurant data will not show up on your app instance.** 
 
 ## License
+<p align="center"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
+
+Feel free to share and adapt to your own purposes, whatever they might be. All we ask is to credit us if you happen to draw any significant inspiration from our work! 
